@@ -1,7 +1,6 @@
-// src/pages/index.js
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import NavBar from "@/app/componentes/NavBar";
 import ShowList from "@/app/componentes/ShowList";
 import MovieCarousel from "@/app/componentes/MovieCarrusel";
@@ -10,6 +9,7 @@ import LoadingScreen from "@/app/componentes/LoadingScreen"; // Importar el comp
 export default function Home() {
     const [showIds, setShowIds] = useState([]);
     const [loading, setLoading] = useState(false); // Estado para manejar la carga
+    const [showNavBar, setShowNavBar] = useState(false); // Estado para controlar la visibilidad de la NavBar
 
     useEffect(() => {
         // Obtener el número total de shows y generar IDs aleatorios
@@ -36,7 +36,7 @@ export default function Home() {
     }, []);
 
     // Función para generar IDs aleatorios únicos y filtrar los que no tienen imagen o no existen
-    const generateRandomIds = async (count:any, min:any, max:any) => {
+    const generateRandomIds = async (count: any, min: any, max:any) => {
         const ids = new Set();
         while (ids.size < count) {
             const randomId = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -72,19 +72,50 @@ export default function Home() {
         }
     };
 
+    useEffect(() => {
+        // Manejar el scroll para mostrar u ocultar la NavBar
+        const handleScroll = () => {
+            const carouselElement = document.querySelector('.movie-carousel');
+            if (carouselElement) {
+                const { top } = carouselElement.getBoundingClientRect();
+                // Mostrar la NavBar si el usuario ha hecho scroll más allá del carrusel
+                if (top <= window.innerHeight) {
+                    setShowNavBar(true);
+                } else {
+                    setShowNavBar(false);
+                }
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    // @ts-ignore
     return (
-        <Container>
-            <NavBar onSearch={handleSearch} />
+        <div style={{ overflow: 'hidden' }}>
+            <div className="ibinge">
+                <Typography sx={{ color: 'white', fontSize: '100px' }}>iBinge</Typography>
+            </div>
+            <hr />
+            {showNavBar && <NavBar onSearch={handleSearch} />} {/* Mostrar NavBar solo si showNavBar es true */}
             {loading && <LoadingScreen />} {/* Mostrar la pantalla de carga completa cuando está cargando */}
             {!loading && (
                 <>
-                    <MovieCarousel showIds={showIds} /> {/* Pasar los IDs al carrusel */}
+                    <div className="movie-carousel"> {/* Agrega la clase para detectar el scroll */}
+                        <MovieCarousel showIds={showIds} /> {/* Pasar los IDs al carrusel */}
+                    </div>
                     <ShowList shows={[]} /> {/* Puedes dejar esta lista vacía o usarla según sea necesario */}
                 </>
             )}
-        </Container>
+            <hr />
+            <div style={{ backgroundColor: 'black', width: '100vw', height: '100vh' }}>
+                <Typography sx={{ color: 'white' }}>Texto</Typography>
+            </div>
+        </div>
     );
 }
+
 
 
 
