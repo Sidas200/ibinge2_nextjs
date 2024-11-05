@@ -1,3 +1,4 @@
+// src/app/componentes/ShowList.js
 "use client";
 import React from 'react';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
@@ -35,3 +36,5 @@ function ShowList({ shows }) {
 }
 
 export default ShowList;
+
+

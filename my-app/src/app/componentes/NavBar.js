@@ -4,7 +4,8 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, MenuItem, Box } from '@mui/material';
 import SearchBar from "@/app/componentes/SearchBar";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'; // Importa el hook useRouter
+import { useRouter } from 'next/navigation';
+import './nav_bar.css';
 
 const NavBar = ({ onSearch }) => {
     const router = useRouter();
@@ -17,7 +18,7 @@ const NavBar = ({ onSearch }) => {
     };
 
     return (
-        <AppBar position="fixed" style={{ background: '#e0e0e0', boxShadow: 'inherit' }}>
+        <AppBar position="fixed" style={{ boxShadow: 'inherit' }} className="fondo">
             <Toolbar>
                 {/* Search Bar */}
                 <Box flexGrow={1} display="flex">
@@ -32,12 +33,12 @@ const NavBar = ({ onSearch }) => {
                 </Box>
 
                 {/* Menu items */}
-                <Box display="flex">
+                <Box display="flex" sx={{color:"black"}}>
                     <MenuItem>
                         <Link href="/">Inicio</Link>
                     </MenuItem>
                     <MenuItem>
-                        <Link href="/about">Sobre nosotros</Link>
+                        <Link href="/login">Login</Link>
                     </MenuItem>
                 </Box>
             </Toolbar>
