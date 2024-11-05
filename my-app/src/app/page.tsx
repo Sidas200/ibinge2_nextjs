@@ -4,7 +4,8 @@ import { Container, Typography } from '@mui/material';
 import NavBar from "@/app/componentes/NavBar";
 import ShowList from "@/app/componentes/ShowList";
 import MovieCarousel from "@/app/componentes/MovieCarrusel";
-import LoadingScreen from "@/app/componentes/LoadingScreen"; // Importar el componente de pantalla de carga
+import LoadingScreen from "@/app/componentes/LoadingScreen";
+import TestFirebase from "@/app/componentes/TestFirebase";
 
 export default function Home() {
     const [showIds, setShowIds] = useState([]);
@@ -112,6 +113,7 @@ export default function Home() {
             <div style={{ backgroundColor: 'black', width: '100vw', height: '100vh' }}>
                 <Typography sx={{ color: 'white' }}>Texto</Typography>
             </div>
+            <TestFirebase></TestFirebase>
         </div>
     );
 }
