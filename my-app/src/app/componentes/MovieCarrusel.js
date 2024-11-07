@@ -1,17 +1,17 @@
-// src/app/componentes/MovieCarousel.js
+// src/app/componentes/MovieCarrusel.js
+"use client";
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const MovieCarousel = ({ showIds }) => {
+const MovieCarrusel = ({ showIds }) => {
     const [shows, setShows] = useState([]);
 
     useEffect(() => {
         const fetchShows = async () => {
             try {
-                // Obtener los detalles de cada show por ID
                 const showPromises = showIds.map(id =>
                     fetch(`https://api.tvmaze.com/shows/${id}`).then(response => response.json())
                 );
@@ -38,7 +38,7 @@ const MovieCarousel = ({ showIds }) => {
     };
 
     return (
-        <div style={{marginTop:"70px"}}>
+        <div style={{ marginTop: "70px" }}>
             {shows.length > 0 ? (
                 <Slider {...settings}>
                     {shows.map((show) => (
@@ -72,5 +72,4 @@ const MovieCarousel = ({ showIds }) => {
     );
 };
 
-export default MovieCarousel;
-
+export default MovieCarrusel;
