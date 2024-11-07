@@ -18,7 +18,7 @@ const NavBar = ({ onSearch }) => {
     };
 
     return (
-        <AppBar position="fixed" style={{ boxShadow: 'inherit' }} className="fondo">
+        <AppBar position="fixed"  className="fondo">
             <Toolbar>
                 {/* Search Bar */}
                 <Box flexGrow={1} display="flex">
