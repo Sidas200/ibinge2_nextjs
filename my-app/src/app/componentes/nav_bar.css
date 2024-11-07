@@ -1,0 +1,6 @@
+.fondo{
+    background-image: url("../images/fondo_astetic.jpeg");
+    background-size: cover;  /* Ajusta la imagen para que cubra todo el fondo */
+    background-position: center; /* Centra la imagen en el div */
+    background-repeat: no-repeat;
+}
