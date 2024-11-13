@@ -1,0 +1,96 @@
+.series-details {
+    position: absolute; /* Cambiado a absolute para poder posicionarlo en la esquina */
+    bottom: 20px; /* Ajusta según la distancia que quieras desde el borde inferior */
+    left: 20px; /* Ajusta según la distancia que quieras desde el borde izquierdo */
+    width: auto; /* Ajusta el ancho según necesites */
+    max-width: 300px; /* Un límite de ancho si quieres que no ocupe mucho espacio */
+    padding: 10px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente para que resalte */
+    color: white; /* Color de texto para que contraste */
+    border-radius: 8px; /* Bordes redondeados */
+    font-family: 'Arsenal SC', serif;
+}
+    
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(30%);
+}
+  
+.content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    text-align: center;
+}
+  
+.title {
+    font-size: 7rem;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    font-family: 'Arsenal SC', serif;
+}
+  
+.buttons {
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-family: 'Arsenal SC', serif;
+    letter-spacing: .1rem;
+    gap: 5vw;
+}
+  
+.buttons button {
+    background-color: transparent;
+    padding: 10px 20px;
+    color: white; 
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+}
+  
+.buttons button:hover {
+    background-color: #ffffff;
+    color: #000;
+    transform: scale(1.05);
+}
+
+.rating{
+    align-items: center;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+  
+.title {
+    font-size: 5.5rem;
+    margin-bottom: 0px;
+    margin-left: 3rem;
+    font-family: 'Arsenal SC', serif;
+}
+
+.star {
+    color: #ddd;
+    font-size: 2em;
+    position: relative;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
