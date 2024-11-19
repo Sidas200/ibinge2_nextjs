@@ -1,45 +1,41 @@
 "use client";
 import React, { useState } from 'react';
-import { TextField, Button, Box } from '@mui/material';
+import { TextField, InputAdornment } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import './SearchBar.css';
 
-const SearchBar = ({ onSearch, className }) => {
+const SearchBar = ({ onSearch }) => {
     const [query, setQuery] = useState('');
 
     const handleInputChange = (e) => {
         setQuery(e.target.value);
     };
 
-    const handleSearch = () => {
-        if (query.trim() && onSearch) {
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter' && query.trim()) {
             onSearch(query);
         }
     };
 
-    const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            handleSearch();
-        }
-    };
-
     return (
-        <Box display="flex" justifyContent="center" className={className}>
+        <div className="search-bar-container">
             <TextField
-                label="Buscar"
-                variant="outlined"
+                placeholder="Buscar series..."
+                variant="standard"
                 value={query}
                 onChange={handleInputChange}
-                onKeyDown={handleKeyPress}
-                sx={{ backgroundColor: 'white' }}
+                onKeyPress={handleKeyPress}
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <SearchIcon className="search-icon" />
+                        </InputAdornment>
+                    ),
+                }}
+                fullWidth
+                className="custom-search-bar"
             />
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleSearch}
-                sx={{ marginLeft: 2 }}
-            >
-                Buscar
-            </Button>
-        </Box>
+        </div>
     );
 };
 

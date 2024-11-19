@@ -42,7 +42,7 @@ export default function Home() {
         while (ids.size < count) {
             const randomId = Math.floor(Math.random() * (max - min + 1)) + min;
             try {
-                const response = await fetch(`https://api.tvmaze.com/shows/${randomId}`);
+                const response = await fetch('https://api.tvmaze.com/shows/${randomId}');
                 const show = await response.json();
 
                 // Verificar si el show tiene imagen y existe
@@ -50,7 +50,7 @@ export default function Home() {
                     ids.add(randomId);
                 }
             } catch (error) {
-                console.warn(`Show with ID ${randomId} not found or has no image.`);
+                console.warn('Show with ID ${randomId} not found or has no image.');
             }
         }
         return Array.from(ids);
@@ -59,7 +59,7 @@ export default function Home() {
     const handleSearch = async (query:any) => {
         setLoading(true); // Iniciar la carga para la búsqueda
         try {
-            const response = await fetch(`https://api.tvmaze.com/search/shows?q=${query}`);
+            const response = await fetch('https://api.tvmaze.com/search/shows?q=${query}');
             const data = await response.json();
             const ids = data
                 .filter((show: { show: { image: any; }; }) => show.show.image) // Filtrar los que tienen imagen
@@ -117,5 +117,3 @@ export default function Home() {
         </div>
     );
 }
-
-

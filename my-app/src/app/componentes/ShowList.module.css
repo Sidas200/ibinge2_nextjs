@@ -1,0 +1,36 @@
+/* src/app/componentes/ShowList.module.css */
+
+.card {
+    cursor: pointer; /* Hace que las tarjetas sean clicables */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Añade animación al hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra básica */
+    border-radius: 10px; /* Esquinas redondeadas */
+    overflow: hidden; /* Asegura que el contenido no se desborde */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Amplía ligeramente la tarjeta al pasar el mouse */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa al hover */
+}
+
+.cardImage {
+    height: 350px; /* Ajusta la altura de las imágenes */
+    object-fit: cover; /* Asegura que las imágenes mantengan proporción */
+}
+
+.cardContent {
+    text-align: center; /* Centra el texto */
+    padding: 10px;
+}
+
+.cardTitle {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333; /* Color principal */
+    margin-bottom: 5px;
+}
+
+.cardSubtitle {
+    font-size: 0.9rem;
+    color: #666; /* Color secundario */
+}
