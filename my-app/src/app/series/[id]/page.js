@@ -1,4 +1,5 @@
 // src/app/series/[id]/page.js
+"use client";
 import SeriesDetails from '../../componentes/SeriesDetails';
 import { fetchShowDetails, fetchCast } from '../../lib/mazeApi';
 
