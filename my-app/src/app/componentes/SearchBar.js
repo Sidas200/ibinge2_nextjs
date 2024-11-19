@@ -1,9 +1,8 @@
 "use client";
-// src/app/componentes/SearchBar.js
 import React, { useState } from 'react';
 import { TextField, Button, Box } from '@mui/material';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, className }) => {
     const [query, setQuery] = useState('');
 
     const handleInputChange = (e) => {
@@ -11,26 +10,26 @@ const SearchBar = ({ onSearch }) => {
     };
 
     const handleSearch = () => {
-        if (query.trim() && onSearch) {  // Ensure onSearch is defined
-            onSearch(query);  // Trigger the search function passed as a prop
+        if (query.trim() && onSearch) {
+            onSearch(query);
         }
     };
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-            handleSearch(); // Ejecutar la búsqueda cuando se presiona Enter
+            handleSearch();
         }
     };
 
     return (
-        <Box display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center" className={className}>
             <TextField
                 label="Buscar"
                 variant="outlined"
                 value={query}
                 onChange={handleInputChange}
-                onKeyDown={handleKeyPress}  // Detectar la tecla Enter
-                sx={{ backgroundColor: 'white' }}  // Ensure background is white
+                onKeyDown={handleKeyPress}
+                sx={{ backgroundColor: 'white' }}
             />
             <Button
                 variant="contained"

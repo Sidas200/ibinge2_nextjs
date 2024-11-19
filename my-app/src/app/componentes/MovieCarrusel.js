@@ -1,3 +1,6 @@
+// src/app/componentes/MovieCarrusel.js
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link'; // Importa el componente Link de Next.js
 import Slider from 'react-slick';
@@ -5,7 +8,7 @@ import { Card, CardMedia, CardContent, Typography, Button } from '@mui/material'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const MovieCarousel = ({ showIds }) => {
+const MovieCarrusel = ({ showIds }) => {
     const [shows, setShows] = useState([]);
 
     useEffect(() => {
@@ -75,5 +78,4 @@ const MovieCarousel = ({ showIds }) => {
     );
 };
 
-export default MovieCarousel;
-
+export default MovieCarrusel;
