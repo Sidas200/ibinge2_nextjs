@@ -1,42 +1,110 @@
 "use client";
-import React from 'react';
-import Link from 'next/link';
-import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import styles from './ShowList.module.css'; // Asegúrate de que el archivo esté en la misma carpeta
+import React from "react";
+import Link from "next/link";
+import { Grid, Card, CardContent, CardMedia, Typography } from "@mui/material";
 
 function ShowList({ shows }) {
     return (
-        <Grid container spacing={4} sx={{ marginTop: '50px', paddingLeft: '1%', paddingRight: '1%' }}>
-            {shows.length > 0 ? (
-                shows.map((show, index) => (
-                    <Grid item key={index} xs={12} sm={6} md={4} lg={2.4}>
-                        <Link href={`/series/${show.show.id}`} passHref>
-                            <Card className={styles.card} component="a">
-                                {show.show.image && (
-                                    <CardMedia
-                                        component="img"
-                                        className={styles.cardImage}
-                                        image={show.show.image.medium}
-                                        alt={show.show.name}
-                                    />
-                                )}
-                                <CardContent className={styles.cardContent}>
-                                    <Typography variant="h6" component="div" className={styles.cardTitle}>
-                                        {show.show.name}
-                                    </Typography>
-                                    <Typography variant="body2" className={styles.cardSubtitle}>
-                                        {show.show.genres.join(', ') || 'Género no disponible'}
-                                    </Typography>
-                                    <Typography variant="body2" className={styles.cardSubtitle}>
-                                        {show.show.premiered || 'Fecha no disponible'}
-                                    </Typography>
-                                </CardContent>
-                            </Card>
-                        </Link>
-                    </Grid>
-                ))
+        <Grid
+            container
+            spacing={4}
+            sx={{
+                marginTop: "50px",
+                paddingLeft: "1%",
+                paddingRight: "1%",
+            }}
+        >
+            {Array.isArray(shows) && shows.length > 0 ? (
+                shows.map((result, index) => {
+                    // Si el show viene de una búsqueda, debemos acceder al atributo "show"
+                    const show = result.show || result; // Maneja ambas estructuras: búsqueda y detalle directo
+                    return (
+                        <Grid item key={show.id || index} xs={12} sm={6} md={4} lg={3}>
+                            <Link href={`/series/${show.id}`} passHref>
+                                <Card
+                                    component="a"
+                                    sx={{
+                                        height: "100%",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "space-between",
+                                        textDecoration: "none",
+                                        boxShadow: 3,
+                                        "&:hover": {
+                                            boxShadow: 6,
+                                        },
+                                    }}
+                                >
+                                    {/* Imagen del show */}
+                                    {show.image && show.image.medium ? (
+                                        <CardMedia
+                                            component="img"
+                                            image={show.image.medium}
+                                            alt={show.name || "Imagen no disponible"}
+                                            sx={{
+                                                height: 250,
+                                                objectFit: "cover",
+                                            }}
+                                        />
+                                    ) : (
+                                        <div
+                                            style={{
+                                                width: "100%",
+                                                height: 250,
+                                                display: "flex",
+                                                justifyContent: "center",
+                                                alignItems: "center",
+                                                backgroundColor: "#ccc",
+                                            }}
+                                        >
+                                            <Typography variant="body2" color="text.secondary">
+                                                Imagen no disponible
+                                            </Typography>
+                                        </div>
+                                    )}
+
+                                    {/* Contenido de la tarjeta */}
+                                    <CardContent>
+                                        <Typography
+                                            variant="h6"
+                                            component="div"
+                                            noWrap
+                                            sx={{ fontWeight: "bold", textAlign: "center" }}
+                                        >
+                                            {show.name || "Título no disponible"}
+                                        </Typography>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            sx={{ textAlign: "center", marginTop: 1 }}
+                                        >
+                                            {show.genres && show.genres.length > 0
+                                                ? `Géneros: ${show.genres.join(", ")}`
+                                                : "Género no disponible"}
+                                        </Typography>
+                                        <Typography
+                                            variant="body2"
+                                            color="text.secondary"
+                                            sx={{ textAlign: "center", marginTop: 1 }}
+                                        >
+                                            {show.premiered
+                                                ? `Estrenado: ${show.premiered}`
+                                                : "Fecha no disponible"}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            </Link>
+                        </Grid>
+                    );
+                })
             ) : (
-                <Typography variant="h6" align="center" color="text.secondary" sx={{ width: '100%' }}>
+                // Mensaje cuando no hay resultados
+                <Typography
+                    variant="h6"
+                    align="center"
+                    color="text.secondary"
+                    sx={{ width: "100%", marginTop: "20px" }}
+                >
                     No se encontraron resultados.
                 </Typography>
             )}
@@ -45,3 +113,5 @@ function ShowList({ shows }) {
 }
 
 export default ShowList;
+
+

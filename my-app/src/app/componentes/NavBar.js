@@ -18,7 +18,7 @@ const NavBar = ({ onSearch }) => {
     return (
         <AppBar position="fixed" className="fondo" sx={{ boxShadow: 'none', background: 'transparent' }}>
             <Toolbar>
-                <Box flexGrow={1} display="flex" justifyContent="center">
+                <Box display="flex" marginRight="200px">
                     <SearchBar onSearch={handleSearch} />
                 </Box>
                 <Box display="flex" sx={{ color: "black", marginLeft: 'auto' }}>
