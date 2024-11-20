@@ -9,7 +9,6 @@ import { Typography } from "@mui/material";
 
 export default function Login() {
     const [credentials, setCredentials] = useState({ email: "", password: "" });
-    const [user, setUser] = useState(null);
     const [error, setError] = useState("");
     const router = useRouter();
 
@@ -23,8 +22,21 @@ export default function Login() {
     const handleEmailLogin = async () => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
-            setUser(userCredential.user);
-            console.log("Usuario autenticado:", userCredential.user);
+            const user = userCredential.user;
+
+            // Generar el token de sesión con Firebase
+            const token = await user.getIdToken();
+
+            // Enviar el token al servidor para configurar la cookie
+            await fetch("/api/auth", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ token }),
+            });
+
+            console.log("Usuario autenticado y sesión creada.");
             router.push("/"); // Redirige a la página principal
         } catch (error) {
             console.error("Error en la autenticación:", error);
@@ -54,7 +66,6 @@ export default function Login() {
                 />
                 <button onClick={handleEmailLogin} style={{color:'black', borderColor:'black'}}>Iniciar sesión</button>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
-                {user && <p>Bienvenido, {user.displayName || user.email}</p>}
             </div>
         </>
     );
