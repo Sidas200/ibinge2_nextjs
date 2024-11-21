@@ -7,7 +7,7 @@ import NavBar from "../componentes/NavBar";
 import './login.css';
 
 export default function Login() {
-    const [credentials, setCredentials] = useState({ username: "", password: "" });
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
     const [error, setError] = useState("");
     const router = useRouter();
 
@@ -20,11 +20,7 @@ export default function Login() {
 
     const handleLogin = async () => {
         try {
-            const userCredential = await signInWithEmailAndPassword(
-                auth,
-                credentials.username,
-                credentials.password
-            );
+            const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
             const user = userCredential.user;
 
             const token = await user.getIdToken();
@@ -36,10 +32,8 @@ export default function Login() {
                 body: JSON.stringify({ token }),
             });
 
-            console.log("Usuario autenticado y sesión creada.");
             router.push("/");
         } catch (error) {
-            console.error("Error en la autenticación:", error);
             setError("Credenciales incorrectas. Inténtalo de nuevo.");
         }
     };
@@ -48,40 +42,48 @@ export default function Login() {
         <>
             <NavBar />
             <div className="login-container">
-                <div className="login-box">
-                    <h1>Iniciar Sesión</h1>
-                    <label htmlFor="username">Usuario</label>
-                    <input
-                        id="username"
-                        type="text"
-                        name="username"
-                        value={credentials.username}
-                        onChange={handleInputChange}
-                        placeholder="Ingresa tu usuario"
-                        className="login-input"
-                    />
-                    <label htmlFor="password">Contraseña</label>
-                    <input
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={credentials.password}
-                        onChange={handleInputChange}
-                        placeholder="Ingresa tu contraseña"
-                        className="login-input"
-                    />
-                    <button onClick={handleLogin} className="login-button">
-                        Iniciar sesión
-                    </button>
-                    {error && <p className="login-error">{error}</p>}
-                    <p className="register-link">
-                        ¿No tienes cuenta?{" "}
-                        <a href="/registro" className="register-anchor">
-                            Regístrate
-                        </a>
+                <div className="form-card">
+                    <h1>Iniciar sesión</h1>
+                    <p className="subtext">
+                        ¿No tienes cuenta? <a href="/registro">Regístrate aquí</a>
                     </p>
+                    <form className="login-form">
+                        <label htmlFor="email">Correo electrónico</label>
+                        <input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={credentials.email}
+                            onChange={handleInputChange}
+                            placeholder="Ingresa tu correo"
+                            required
+                        />
+                        <label htmlFor="password">Contraseña</label>
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            value={credentials.password}
+                            onChange={handleInputChange}
+                            placeholder="Ingresa tu contraseña"
+                            required
+                        />
+                        <button type="button" onClick={handleLogin}>
+                            Iniciar sesión
+                        </button>
+                        {error && <p className="error">{error}</p>}
+                    </form>
+                </div>
+                <div className="image-section">
+                    <div className="text-overlay">
+                        Texto Descriptivo<br />Añade algo aquí si lo necesitas.
+                    </div>
                 </div>
             </div>
         </>
     );
 }
+
+
+
+

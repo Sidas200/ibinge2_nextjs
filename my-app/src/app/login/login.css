@@ -1,84 +1,115 @@
-/* Estilos principales para el login */
-html, body {
-    height: 100%;
+/* Fondo del contenedor */
+body, html {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-    background: url('../images/pngtree-silver-silk-minimalist-background-image_2172665.jpg') no-repeat center center fixed;
-    background-size: cover;
+    padding: 0;
+    height: 100%;
+    background-color: #d9d9d9; /* Gris claro */
 }
 
 .login-container {
-    width: 100%;
-    max-width: 400px;
-    margin: auto;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    background-color: #d9d9d9; /* Gris claro */
+    padding: 2% 3%; /* Espaciado en los costados */
+    margin-top: 2%;
 }
 
-.login-box h1 {
-    margin-bottom: 20px;
-    color: #333;
+/* Tarjeta del formulario */
+.form-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    background-color: #FFFFFF; /* Blanco para contraste */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 45%;
+    height: 90%;
+}
+
+.form-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #000; /* Texto negro */
     text-align: center;
 }
 
-label {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #333;
+.form-card .subtext {
+    font-size: 1rem; /* Tamaño mayor */
+    margin-bottom: 20px;
+    color: #000; /* Texto negro */
+    text-align: center;
 }
 
-.login-input {
+.form-card .subtext a {
+    color: #4F46E5; /* Azul para los enlaces */
+    text-decoration: none;
+    font-weight: bold; /* Destacar enlaces */
+}
+
+.form-card form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar los elementos del formulario */
+    width: 100%; /* Asegurar que los campos ocupen el ancho completo */
+}
+
+.form-card label {
+    font-size: 1.1rem; /* Letras más grandes */
+    color: #000000; /* Texto negro */
+    margin-bottom: 5px;
+    text-align: left;
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 15px;
+}
+
+.form-card input {
+    width: 100%; /* Ocupa todo el ancho */
+    padding: 12px; /* Más espacio interno */
+    margin-bottom: 20px;
+    font-size: 1rem; /* Texto más legible */
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
+    border-radius: 4px;
+    color: black;
+
 }
 
-.login-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4a90e2;
-    color: white;
+.form-card button {
+    width: 100%; /* Botón del mismo ancho que los campos */
+    background-color: #000; /* Negro para destacar */
+    color: #FFF;
+    padding: 12px 15px; /* Más espacio en el botón */
+    font-size: 1.1rem; /* Texto más grande en el botón */
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
-    background-color: #357ABD;
+.form-card button:hover {
+    background-color: #333; /* Más oscuro al pasar */
 }
 
-.login-error {
-    color: red;
-    text-align: center;
-    margin-top: 10px;
+/* Sección de la imagen */
+.image-section {
+    flex: 1;
+    position: relative;
+    background-image: url('../images/ejemplokarina.png'); /* Ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    height: 90%; /* Imagen más alta */
 }
 
-.register-link {
-    margin-top: 15px;
-    font-size: 14px;
-    text-align: center;
+.image-section .text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #FFF; /* Texto blanco */
+    font-size: 1rem; /* Texto más grande */
+    line-height: 1.5;
+    width: 90%;
 }
 
-.register-anchor {
-    color: #4a90e2;
-    text-decoration: none;
-}
-
-.register-anchor:hover {
-    text-decoration: underline;
-}
