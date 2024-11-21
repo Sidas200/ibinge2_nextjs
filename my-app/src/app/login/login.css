@@ -96,7 +96,7 @@ body, html {
 .image-section {
     flex: 1;
     position: relative;
-    background-image: url('../images/ejemplokarina.png'); /* Ruta de tu imagen */
+    background-image: url('../images/serie_collage.jpg'); /* Ruta de tu imagen */
     background-size: cover;
     background-position: center;
     border-radius: 8px;

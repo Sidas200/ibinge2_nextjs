@@ -76,7 +76,7 @@ export default function Login() {
                 </div>
                 <div className="image-section">
                     <div className="text-overlay">
-                        Texto Descriptivo<br />Añade algo aquí si lo necesitas.
+                        Los Monos Articos<br />Ay bobito.
                     </div>
                 </div>
             </div>
