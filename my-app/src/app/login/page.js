@@ -5,10 +5,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
 import NavBar from "../componentes/NavBar";
 import './login.css';
-import { Typography } from "@mui/material";
 
 export default function Login() {
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const [credentials, setCredentials] = useState({ username: "", password: "" });
     const [error, setError] = useState("");
     const router = useRouter();
 
@@ -19,15 +18,16 @@ export default function Login() {
         });
     };
 
-    const handleEmailLogin = async () => {
+    const handleLogin = async () => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
+            const userCredential = await signInWithEmailAndPassword(
+                auth,
+                credentials.username,
+                credentials.password
+            );
             const user = userCredential.user;
 
-            // Generar el token de sesión con Firebase
             const token = await user.getIdToken();
-
-            // Enviar el token al servidor para configurar la cookie
             await fetch("/api/auth", {
                 method: "POST",
                 headers: {
@@ -37,7 +37,7 @@ export default function Login() {
             });
 
             console.log("Usuario autenticado y sesión creada.");
-            router.push("/"); // Redirige a la página principal
+            router.push("/");
         } catch (error) {
             console.error("Error en la autenticación:", error);
             setError("Credenciales incorrectas. Inténtalo de nuevo.");
@@ -47,25 +47,40 @@ export default function Login() {
     return (
         <>
             <NavBar />
-            <div style={{ marginTop: '50px', backgroundColor:'white' }}>
-                <Typography className='div'>Correo electrónico</Typography>
-                <input
-                    className='entrada'
-                    type="email"
-                    name="email"
-                    value={credentials.email}
-                    onChange={handleInputChange}
-                />
-                <Typography className='div'>Contraseña</Typography>
-                <input
-                    className='entrada'
-                    type="password"
-                    name="password"
-                    value={credentials.password}
-                    onChange={handleInputChange}
-                />
-                <button onClick={handleEmailLogin} style={{color:'black', borderColor:'black'}}>Iniciar sesión</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+            <div className="login-container">
+                <div className="login-box">
+                    <h1>Iniciar Sesión</h1>
+                    <label htmlFor="username">Usuario</label>
+                    <input
+                        id="username"
+                        type="text"
+                        name="username"
+                        value={credentials.username}
+                        onChange={handleInputChange}
+                        placeholder="Ingresa tu usuario"
+                        className="login-input"
+                    />
+                    <label htmlFor="password">Contraseña</label>
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        value={credentials.password}
+                        onChange={handleInputChange}
+                        placeholder="Ingresa tu contraseña"
+                        className="login-input"
+                    />
+                    <button onClick={handleLogin} className="login-button">
+                        Iniciar sesión
+                    </button>
+                    {error && <p className="login-error">{error}</p>}
+                    <p className="register-link">
+                        ¿No tienes cuenta?{" "}
+                        <a href="/registro" className="register-anchor">
+                            Regístrate
+                        </a>
+                    </p>
+                </div>
             </div>
         </>
     );
