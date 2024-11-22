@@ -90,77 +90,55 @@ export default function Home() {
             <hr/>
             <div className="platform-section">
                 <div className="platform-content">
-                    {/* Parte izquierda: Palabra "Selecciona" centrada verticalmente */}
+                    {/* Parte izquierda */}
                     <div className="platform-left">
-                        <Typography
-                            variant="h1"
-                            sx={{color: "white", fontSize: "3rem", textAlign: "center"}}
-                        >
-                            Selecciona
-                        </Typography>
+                        <h1>Selecciona</h1>
                     </div>
 
-                    {/* Parte derecha: Cuadrícula de imágenes 3x3 */}
+                    {/* Parte derecha */}
                     <div className="platform-right">
                         <div className="platform-grid">
                             <button
-                                className="platform-button"
+                                className="platform-button platform-netflix"
                                 onClick={() => window.open("https://www.netflix.com", "_blank")}
-                            >
-                                <img src={netflix}/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-max"
                                 onClick={() => window.open("https://www.max.com", "_blank")}
-                            >
-                                <img src="./images/max.jpg" alt="Max"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-hulu"
                                 onClick={() => window.open("https://www.hulu.com", "_blank")}
-                            >
-                                <img src="./images/hulu.jpg" alt="Hulu"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-paramount"
                                 onClick={() => window.open("https://www.paramountplus.com", "_blank")}
-                            >
-                                <img src="./images/paramount.jpg" alt="Paramount+"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-primevideo"
                                 onClick={() => window.open("https://www.primevideo.com", "_blank")}
-                            >
-                                <img src="./images/prine.jpg" alt="Prime Video"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-peacock"
                                 onClick={() => window.open("https://www.peacocktv.com", "_blank")}
-                            >
-                                <img src="./images/pea.jpg" alt="Peacock"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-disney"
                                 onClick={() => window.open("https://www.disneyplus.com", "_blank")}
-                            >
-                                <img src="./images/disney.jpg" alt="Disney+"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-apple"
                                 onClick={() => window.open("https://tv.apple.com", "_blank")}
-                            >
-                                <img src="./images/apple.jpg" alt="Apple TV"/>
-                            </button>
+                            ></button>
                             <button
-                                className="platform-button"
+                                className="platform-button platform-crunchyroll"
                                 onClick={() => window.open("https://www.crunchyroll.com", "_blank")}
-                            >
-                                <img src="./images/crunchy.jpg" alt="Crunchyroll"/>
-                            </button>
+                            ></button>
                         </div>
                     </div>
                 </div>
             </div>
+
             <TestFirebase/>
         </div>
     );
