@@ -12,6 +12,7 @@ export default function SeriesDetails({ showDetails }) {
   const [cast, setCast] = useState([]);
   const [rating, setRating] = useState(showDetails.rating?.average || "N/A");
   const [backgroundImage, setBackgroundImage] = useState(null);
+  const [isLoadingImage, setIsLoadingImage] = useState(true);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -19,10 +20,21 @@ export default function SeriesDetails({ showDetails }) {
         const response = await fetch(`https://api.tvmaze.com/shows/${showDetails.id}/images`);
         const images = await response.json();
         const background = images.find(img => img.type === 'background') || images.find(img => img.type === 'banner') || images[0];
-        setBackgroundImage(background ? background.resolutions.original.url : 'fallback_image_url');
+        if (background) {
+          const img = new Image();
+          img.src = background.resolutions.original.url;
+          img.onload = () => {
+            setBackgroundImage(background.resolutions.original.url);
+            setIsLoadingImage(false);
+          };
+        } else {
+          setBackgroundImage('fallback_image_url');
+          setIsLoadingImage(false);
+        }
       } catch (error) {
         console.error("Error fetching images:", error);
         setBackgroundImage('fallback_image_url');
+        setIsLoadingImage(false);
       }
     };
     fetchImages();
@@ -71,38 +83,41 @@ export default function SeriesDetails({ showDetails }) {
   };
 
   return (
-    <div className={styles.seriesDetails}>
-      {/* Fondo */}
-      <div
-        className={styles.background}
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      />
-
-      {/* Título */}
-      <div className={styles.title}>
-        <h1>{showDetails.name || "Loading..."}</h1>
-      </div>
-
-      {/* Botones */}
-      <div className={styles.buttons}>
-        <button onClick={() => handleTabClick('season')}>Temporadas</button>
-        <h2 className={styles.rating}>{rating} ☆</h2>
-        <button onClick={() => handleTabClick('cast')}>Cast</button>
-      </div>
-
-      {/* Sidebar */}
-      {activeTab && (
-        <Sidebar
-          activeTab={activeTab}
-          seasons={seasons}
-          seasonData={seasonData}
-          selectedSeason={selectedSeason}
-          onSeasonClick={handleSeasonClick}
-          onBackToSeasons={handleBackToSeasons}
-          cast={cast}
-          onClose={handleCloseSidebar}
+      <div className={styles.seriesDetails}>
+        {/* Fondo */}
+        <div
+            className={styles.background}
+            style={{
+              backgroundImage: isLoadingImage ? 'url("fallback_loading_image_url")' : `url(${backgroundImage})`,
+            }}
         />
-      )}
-    </div>
+
+        {/* Título */}
+        <div className={styles.title}>
+          <h1>{showDetails.name || "Loading..."}</h1>
+        </div>
+
+        {/* Botones */}
+        <div className={styles.buttons}>
+          <button onClick={() => handleTabClick('season')}>Temporadas</button>
+          <h2 className={styles.rating}>{rating} ☆</h2>
+          <button onClick={() => handleTabClick('cast')}>Cast</button>
+        </div>
+
+        {/* Sidebar */}
+        {activeTab && (
+            <Sidebar
+                activeTab={activeTab}
+                seasons={seasons}
+                seasonData={seasonData}
+                selectedSeason={selectedSeason}
+                onSeasonClick={handleSeasonClick}
+                onBackToSeasons={handleBackToSeasons}
+                cast={cast}
+                onClose={handleCloseSidebar}
+            />
+        )}
+      </div>
   );
 }
+
