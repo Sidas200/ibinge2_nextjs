@@ -52,6 +52,7 @@ const MovieCarrusel = ({ showIds, totalToShow }) => {
 
     return (
         <div className="movie-carousel-container">
+
             {shows.length > 0 ? (
                 <Slider {...settings}>
                     {shows.map((show) => (
@@ -69,6 +70,7 @@ const MovieCarrusel = ({ showIds, totalToShow }) => {
                                     </div>
                                 )}
                             </div>
+
                         </Link>
                     ))}
                 </Slider>
@@ -82,3 +84,4 @@ const MovieCarrusel = ({ showIds, totalToShow }) => {
 };
 
 export default MovieCarrusel;
+

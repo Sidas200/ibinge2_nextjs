@@ -20,6 +20,7 @@ body {
     color: var(--foreground);
     background: var(--background);
     font-family: Arial, Helvetica, sans-serif;
+    background-image: url("./images/image-mesh-gradient.png");
 }
 
 @layer utilities {
@@ -235,8 +236,9 @@ body {
 
 /* Botón de plataforma */
 .platform-button {
-    width: 220px; /* Ajusta el tamaño del botón */
-    height: 220px;
+
+    width: 180px; /* Ajusta el tamaño del botón */
+    height: 180px;
     background-size: contain; /* Asegura que la imagen se ajuste dentro del botón */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita repetir la imagen */
