@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { auth, db } from "../../firebase"; // Asegúrate de importar correctamente Firebase
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
+import NavBar from "../componentes/NavBar";
 
 export default function UserProfile() {
     const [user, setUser] = useState(null);
@@ -29,13 +30,39 @@ export default function UserProfile() {
             );
             const querySnapshot = await getDocs(q);
 
-            const favoritesData = querySnapshot.docs.map((doc) => doc.data());
+            const favoritesData = querySnapshot.docs.map((doc) => ({
+                id: doc.id, // Agregar el ID del documento para referencia
+                ...doc.data(),
+            }));
             setFavorites(favoritesData);
             setIsLoading(false);
         };
 
         fetchUserData();
     }, []);
+
+    const handleDeleteFavorite = async (favoriteId) => {
+        try {
+            const currentUser = auth.currentUser;
+            if (!currentUser) {
+                alert("Debes iniciar sesión.");
+                return;
+            }
+
+            // Eliminar de Firestore
+            await deleteDoc(doc(db, "favorites", favoriteId));
+
+            // Actualizar el estado local
+            setFavorites((prevFavorites) =>
+                prevFavorites.filter((favorite) => favorite.id !== favoriteId)
+            );
+
+            alert("Favorito eliminado exitosamente.");
+        } catch (error) {
+            console.error("Error al eliminar el favorito:", error);
+            alert("Hubo un problema al eliminar el favorito.");
+        }
+    };
 
     if (isLoading) {
         return (
@@ -46,6 +73,8 @@ export default function UserProfile() {
     }
 
     return (
+        <>
+        <NavBar></NavBar>
         <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
             <h1>Perfil del Usuario</h1>
             {user && (
@@ -76,10 +105,23 @@ export default function UserProfile() {
                                 alt={favorite.title}
                                 style={{ width: "100px", height: "100px", borderRadius: "8px", marginRight: "10px" }}
                             />
-                            <div>
+                            <div style={{ flexGrow: 1 }}>
                                 <h3>{favorite.title}</h3>
                                 <p><strong>Géneros:</strong> {Array.isArray(favorite.genres) ? favorite.genres.join(", ") : "N/A"}</p>
                             </div>
+                            <button
+                                onClick={() => handleDeleteFavorite(favorite.id)}
+                                style={{
+                                    padding: "5px 10px",
+                                    backgroundColor: "red",
+                                    color: "white",
+                                    border: "none",
+                                    borderRadius: "5px",
+                                    cursor: "pointer",
+                                }}
+                            >
+                                Eliminar
+                            </button>
                         </li>
                     ))}
                 </ul>
@@ -87,6 +129,7 @@ export default function UserProfile() {
                 <p>No tienes favoritos guardados.</p>
             )}
         </div>
+        </>
     );
 }
 
