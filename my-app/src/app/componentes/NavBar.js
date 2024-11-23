@@ -42,9 +42,14 @@ const NavBar = ({ onSearch }) => {
                         Inicio
                     </Link>
                     {isLoggedIn ? (
+                        <>
                         <Button onClick={handleLogout} style={{ color: 'inherit' }}>
                             Cerrar sesión
                         </Button>
+                        <Link href="/perfil" style={{ textDecoration: 'none', color: 'inherit' }}>
+                            Perfil
+                        </Link>
+                        </>
                     ) : (
                         <Link href="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
                             Login
