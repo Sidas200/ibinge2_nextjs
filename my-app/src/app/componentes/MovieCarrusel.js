@@ -45,8 +45,6 @@ const MovieCarrusel = ({ totalToShow }) => {
 
     useEffect(() => {
         const fetchShows = async () => {
-            if (favoriteGenres.length === 0) return;
-
             try {
                 // Obtener un conjunto amplio de series desde la API
                 const response = await fetch(`https://api.tvmaze.com/shows`);
@@ -56,10 +54,19 @@ const MovieCarrusel = ({ totalToShow }) => {
 
                 const allShows = await response.json();
 
-                // Filtrar las series por los géneros favoritos
-                const filteredShows = allShows.filter((show) =>
-                    show.genres.some((genre) => favoriteGenres.includes(genre))
-                );
+                let filteredShows;
+
+                if (favoriteGenres.length > 0) {
+                    // Filtrar las series por los géneros favoritos
+                    filteredShows = allShows.filter((show) =>
+                        show.genres.some((genre) => favoriteGenres.includes(genre))
+                    );
+                } else {
+                    // Obtener series aleatorias
+                    filteredShows = allShows
+                        .sort(() => Math.random() - 0.5) // Mezclar aleatoriamente
+                        .slice(0, 20); // Limitar el número de series a mostrar
+                }
 
                 setShows(filteredShows);
             } catch (error) {
@@ -104,7 +111,7 @@ const MovieCarrusel = ({ totalToShow }) => {
                 </Slider>
             ) : (
                 <p style={{ textAlign: "center", color: "#000", marginTop: "20px" }}>
-                    No hay series disponibles para tus géneros favoritos.
+                    No hay series disponibles.
                 </p>
             )}
         </div>
@@ -112,6 +119,7 @@ const MovieCarrusel = ({ totalToShow }) => {
 };
 
 export default MovieCarrusel;
+
 
 
 
