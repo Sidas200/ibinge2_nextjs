@@ -3,12 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Slider from "react-slick";
-import { Card, CardMedia, CardContent, Typography, Button } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./MovieCarrusel.css";
 
-const MovieCarrusel = ({ showIds }) => {
-    const [shows, setShows] = useState([]); // Estado para almacenar datos completos de los shows
+const MovieCarrusel = ({ showIds, totalToShow }) => {
+    const [shows, setShows] = useState([]);
 
     useEffect(() => {
         const fetchShows = async () => {
@@ -23,12 +23,12 @@ const MovieCarrusel = ({ showIds }) => {
                         })
                         .catch((error) => {
                             console.error(`Error fetching show with ID ${id}:`, error);
-                            return null; // Excluir shows con errores
+                            return null;
                         })
                 );
 
                 const showsData = await Promise.all(showPromises);
-                const validShows = showsData.filter((show) => show !== null && show.image); // Filtrar datos nulos y shows sin imagen
+                const validShows = showsData.filter((show) => show !== null && show.image);
                 setShows(validShows);
             } catch (error) {
                 console.error("Error fetching shows:", error);
@@ -41,57 +41,41 @@ const MovieCarrusel = ({ showIds }) => {
     }, [showIds]);
 
     const settings = {
-        dots: true,
+        dots: false, // Eliminar los puntos de navegación
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: totalToShow,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
     };
 
     return (
-        <div style={{ marginTop: "70px" }}>
+        <div className="movie-carousel-container">
             {shows.length > 0 ? (
                 <Slider {...settings}>
                     {shows.map((show) => (
                         <Link key={show.id} href={`/series/${show.id}`} passHref>
-                            <Button component="a">
-                                <Card style={{ margin: "0 10px" }}>
-                                    {show.image && show.image.medium ? (
-                                        <CardMedia
-                                            component="img"
-                                            height="300"
-                                            image={show.image.medium}
-                                            alt={show.name || "Imagen no disponible"}
-                                        />
-                                    ) : (
-                                        <div
-                                            style={{
-                                                height: 300,
-                                                backgroundColor: "#ccc",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
-                                            <Typography>Imagen no disponible</Typography>
-                                        </div>
-                                    )}
-                                    <CardContent>
-                                        <Typography variant="h6" component="div" align="center">
-                                            {show.name || "No Name Available"}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Button>
+                            <div className="movie-card">
+                                {show.image && show.image.medium ? (
+                                    <img
+                                        className="movie-card-media"
+                                        src={show.image.medium}
+                                        alt={show.name || "Imagen no disponible"}
+                                    />
+                                ) : (
+                                    <div className="movie-card-placeholder">
+                                        <p>Imagen no disponible</p>
+                                    </div>
+                                )}
+                            </div>
                         </Link>
                     ))}
                 </Slider>
             ) : (
-                <Typography variant="h6" align="center" style={{ marginTop: "20px" }}>
+                <p style={{ textAlign: "center", color: "#000", marginTop: "20px" }}>
                     No shows available
-                </Typography>
+                </p>
             )}
         </div>
     );

@@ -235,8 +235,8 @@ body {
 
 /* Botón de plataforma */
 .platform-button {
-    width: 280px; /* Ajusta el tamaño del botón */
-    height: 280px;
+    width: 220px; /* Ajusta el tamaño del botón */
+    height: 220px;
     background-size: contain; /* Asegura que la imagen se ajuste dentro del botón */
     background-position: center; /* Centra la imagen */
     background-repeat: no-repeat; /* Evita repetir la imagen */
