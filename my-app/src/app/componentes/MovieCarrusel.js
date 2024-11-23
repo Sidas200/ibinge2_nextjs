@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Slider from "react-slick";
 import { Card, CardMedia, CardContent, Typography, Button } from "@mui/material";
+import "./carrusel.css"; // Importamos el CSS modular
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -51,34 +52,27 @@ const MovieCarrusel = ({ showIds }) => {
     };
 
     return (
-        <div style={{ marginTop: "70px" }}>
+        <div className="carruselContainer">
             {shows.length > 0 ? (
                 <Slider {...settings}>
                     {shows.map((show) => (
                         <Link key={show.id} href={`/series/${show.id}`} passHref>
                             <Button component="a">
-                                <Card style={{ margin: "0 10px" }}>
+                                <Card className="card">
                                     {show.image && show.image.medium ? (
                                         <CardMedia
                                             component="img"
                                             height="300"
                                             image={show.image.medium}
                                             alt={show.name || "Imagen no disponible"}
+                                            className="cardImage"
                                         />
                                     ) : (
-                                        <div
-                                            style={{
-                                                height: 300,
-                                                backgroundColor: "#ccc",
-                                                display: "flex",
-                                                justifyContent: "center",
-                                                alignItems: "center",
-                                            }}
-                                        >
+                                        <div className="noImage">
                                             <Typography>Imagen no disponible</Typography>
                                         </div>
                                     )}
-                                    <CardContent>
+                                    <CardContent className="cardContent">
                                         <Typography variant="h6" component="div" align="center">
                                             {show.name || "No Name Available"}
                                         </Typography>
@@ -98,3 +92,4 @@ const MovieCarrusel = ({ showIds }) => {
 };
 
 export default MovieCarrusel;
+

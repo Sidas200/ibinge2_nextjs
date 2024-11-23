@@ -54,7 +54,6 @@ export default function Register() {
 
     return (
         <>
-            <NavBar />
             <div className="registro-container">
                 <div className="form-card">
                     <h1>Crea una cuenta</h1>
