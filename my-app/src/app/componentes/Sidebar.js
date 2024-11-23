@@ -17,7 +17,7 @@ export default function Sidebar({
       <button onClick={onClose} className={styles.closeButton}>✖</button>
 
       {activeTab === 'season' && !selectedSeason && seasons.length > 0 && (
-        <div>
+        <div className={styles.series}>
           <h3 className={styles.heading}>Temporadas</h3>
           {seasons.map((season) => (
             <button
@@ -32,10 +32,9 @@ export default function Sidebar({
       )}
 
       {activeTab === 'season' && selectedSeason && (
-        <div>
+        <div className={styles.episodes}>
           
           <h3 className={styles.heading}>{`Temporada ${selectedSeason.number}`}</h3>
-          <h4 className={styles.heading}>Episodios</h4>
           {seasonData.length > 0 ? (
             seasonData.map((episode) => (
               <p key={episode.id}>{episode.name}</p>
@@ -45,10 +44,11 @@ export default function Sidebar({
           )}
           <button onClick={onBackToSeasons} className={styles.backButton}>Regresar</button>
         </div>
+        
       )}
 
       {activeTab === 'cast' && cast.length > 0 && (
-        <div>
+        <div className={styles.names} >
           <h3 className={styles.heading}>Elenco</h3>
           {cast.map((member) => (
             <p key={member.id}>{member.name}</p>

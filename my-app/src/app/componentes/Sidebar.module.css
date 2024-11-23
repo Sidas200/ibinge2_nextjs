@@ -13,11 +13,27 @@
     transition: transform 0.3s ease;
     backdrop-filter: blur(3px);
     font-family: 'Arsenal SC', serif;
+    display: flex;
+    align-items: center;
 }
   
 .sidebar.active {
     transform: translateX(0); /* Muestra el sidebar */
 }
+
+.series {
+  margin: 0 auto; /* Centra horizontalmente */
+  width: 100%; /* Ancho relativo al sidebar */
+  height: 60%; /* Altura relativa al sidebar */
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+  padding: 0px; /* Espaciado interno */
+  overflow-y: auto; /* Habilita desplazamiento vertical */
+  gap: 10px; /* Espacio entre botones */
+}
+
+
   
 .closeButton {
     background: transparent;
@@ -26,6 +42,8 @@
     font-size: 1.2rem;
     cursor: pointer;
     margin-bottom: 20px;
+    position: fixed;
+    top: 20px;
 }
 
 .active {
@@ -45,19 +63,48 @@
   border: none;
   cursor: pointer;
   margin-top: 16px;
-  
 }
 
 .heading {
   margin-bottom: 8px;
+  font-size: 2rem;
+}
+
+.names{
+  margin: 0 auto; /* Centra horizontalmente */
+  width: 100%; /* Ancho relativo al sidebar */
+  height: 60%; /* Altura relativa al sidebar */
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+  padding: 0px; /* Espaciado interno */
+  overflow-y: auto; /* Habilita desplazamiento vertical */
+  gap: 10px; /* Espacio entre botones */
+}
+
+.episodes{
+  margin: 0 auto; /* Centra horizontalmente */
+  width: 100%; /* Ancho relativo al sidebar */
+  height: 60%; /* Altura relativa al sidebar */
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+  padding: 0px; /* Espaciado interno */
+  overflow-y: auto; /* Habilita desplazamiento vertical */
+  gap: 10px; /* Espacio entre botones */
 }
 
 .button {
-  display: block;
-  margin: 8px 0;
-  background-color: #e0e0e0;
   border: none;
-  padding: 8px 16px;
+  padding: 0px 0px;
   cursor: pointer;
-  width: 100%;
+  width: 50%; /* Botones ocupan todo el ancho del contenedor */
+  border-radius: 4px; /* Bordes redondeados para los botones */
+  font-size: 1rem;
+  transition: background-color 5s ease;
+}
+
+.button:hover {
+  font-size: 1.2rem;
+  
 }
