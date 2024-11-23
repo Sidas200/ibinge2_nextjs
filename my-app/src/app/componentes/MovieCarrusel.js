@@ -1,81 +1,117 @@
-// src/app/componentes/MovieCarrusel.js
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link'; // Importa el componente Link de Next.js
-import Slider from 'react-slick';
-import { Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Slider from "react-slick";
+import { auth, db } from "../../firebase"; // Asegúrate de importar correctamente Firebase
+import { collection, query, where, getDocs } from "firebase/firestore";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./MovieCarrusel.css";
 
-const MovieCarrusel = ({ showIds }) => {
+const MovieCarrusel = ({ totalToShow }) => {
+    const [favoriteGenres, setFavoriteGenres] = useState([]);
     const [shows, setShows] = useState([]);
 
     useEffect(() => {
-        const fetchShows = async () => {
+        const fetchFavoriteGenres = async () => {
             try {
-                const showPromises = showIds.map(id =>
-                    fetch(`https://api.tvmaze.com/shows/${id}`).then(response => response.json())
+                const currentUser = auth.currentUser;
+                if (!currentUser) {
+                    console.warn("El usuario no ha iniciado sesión.");
+                    return;
+                }
+
+                // Obtener los favoritos del usuario
+                const q = query(
+                    collection(db, "favorites"),
+                    where("userId", "==", currentUser.uid)
                 );
-                const showsData = await Promise.all(showPromises);
-                setShows(showsData);
+                const querySnapshot = await getDocs(q);
+
+                // Extraer géneros de los favoritos
+                const genres = querySnapshot.docs
+                    .map((doc) => doc.data().genres)
+                    .flat(); // Aplanar para combinar todos los arrays de géneros
+                const uniqueGenres = [...new Set(genres)]; // Eliminar duplicados
+                setFavoriteGenres(uniqueGenres);
             } catch (error) {
-                console.error('Error fetching shows:', error);
+                console.error("Error al obtener géneros favoritos:", error);
             }
         };
 
-        if (showIds.length > 0) {
-            fetchShows();
-        }
-    }, [showIds]);
+        fetchFavoriteGenres();
+    }, []);
+
+    useEffect(() => {
+        const fetchShows = async () => {
+            if (favoriteGenres.length === 0) return;
+
+            try {
+                // Obtener un conjunto amplio de series desde la API
+                const response = await fetch(`https://api.tvmaze.com/shows`);
+                if (!response.ok) {
+                    throw new Error("Error al obtener las series.");
+                }
+
+                const allShows = await response.json();
+
+                // Filtrar las series por los géneros favoritos
+                const filteredShows = allShows.filter((show) =>
+                    show.genres.some((genre) => favoriteGenres.includes(genre))
+                );
+
+                setShows(filteredShows);
+            } catch (error) {
+                console.error("Error al obtener series:", error);
+            }
+        };
+
+        fetchShows();
+    }, [favoriteGenres]);
 
     const settings = {
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: totalToShow,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
     };
 
     return (
-        <div style={{ marginTop: "70px" }}>
+        <div className="movie-carousel-container">
             {shows.length > 0 ? (
                 <Slider {...settings}>
                     {shows.map((show) => (
                         <Link key={show.id} href={`/series/${show.id}`} passHref>
-                            <Button component="a">
-                                <Card style={{ margin: '0 10px' }}>
-                                    {show.image ? (
-                                        <CardMedia
-                                            component="img"
-                                            height="300"
-                                            image={show.image.medium}
-                                            alt={show.name}
-                                        />
-                                    ) : (
-                                        <div style={{ height: 300, backgroundColor: '#ccc', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                                            <Typography>No Image Available</Typography>
-                                        </div>
-                                    )}
-                                    <CardContent>
-                                        <Typography variant="h6" component="div" align="center">
-                                            {show.name || 'No Name Available'}
-                                        </Typography>
-                                    </CardContent>
-                                </Card>
-                            </Button>
+                            <div className="movie-card">
+                                {show.image && show.image.medium ? (
+                                    <img
+                                        className="movie-card-media"
+                                        src={show.image.medium}
+                                        alt={show.name || "Imagen no disponible"}
+                                    />
+                                ) : (
+                                    <div className="movie-card-placeholder">
+                                        <p>Imagen no disponible</p>
+                                    </div>
+                                )}
+                            </div>
                         </Link>
                     ))}
                 </Slider>
             ) : (
-                <Typography variant="h6" align="center" style={{ marginTop: '20px' }}>
-                    No shows available
-                </Typography>
+                <p style={{ textAlign: "center", color: "#000", marginTop: "20px" }}>
+                    No hay series disponibles para tus géneros favoritos.
+                </p>
             )}
         </div>
     );
 };
 
 export default MovieCarrusel;
+
+
+

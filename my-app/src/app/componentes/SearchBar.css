@@ -23,7 +23,7 @@
 .custom-search-bar .MuiInputBase-root {
     border: none;
     font-size: 1rem; /* Tamaño del texto */
-    color: #4f46e5; /* Color del texto */
+    color: gray; /* Color del texto */
 }
 
 .custom-search-bar .MuiInputBase-root::before {
@@ -37,7 +37,7 @@
 
 /* Icono de búsqueda */
 .search-icon {
-    color: #4f46e5; /* Color inicial del icono */
+    color: gray; /* Color inicial del icono */
     font-size: 1.2rem; /* Tamaño del icono */
     transition: transform 0.2s ease, color 0.3s ease; /* Animación */
 }

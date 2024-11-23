@@ -1,0 +1,27 @@
+.movie-carousel-container {
+    padding: 20px 40px; /* Reducir espacio lateral */
+    background-color: #fff;
+}
+
+.movie-card {
+    margin: 0 10px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.movie-card-media {
+    height: 500px; /* Incrementar el alto */
+    width: 100%; /* Asegurar ancho completo */
+    object-fit: cover; /* Ajustar la imagen */
+}
+
+.movie-card-placeholder {
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc;
+    color: #000;
+}
+

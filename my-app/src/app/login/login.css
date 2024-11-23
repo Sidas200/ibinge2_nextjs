@@ -1,28 +1,120 @@
-html, body {
-    height: 100%;
+body, html {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 0;
+    height: 100%;
+    background-color: #d9d9d9; /* Gris claro */
 }
 
-.div{
-    height: 100%;
-    margin: 0;
+.login-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    height: 100%;
+    background-color: #d9d9d9; /* Gris claro */
+    padding: 2% 3%; /* Ajuste de márgenes iguales al registro */
+}
+
+/* Tarjeta del formulario */
+.form-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    background-color: #FFFFFF; /* Fondo blanco */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    width: 45%; /* Ancho del formulario */
+    height: 90%; /* Altura del formulario */
+}
+
+.form-card h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #000; /* Texto negro */
+    text-align: center;
+}
+
+.form-card .subtext {
+    font-size: 1rem; /* Tamaño de texto mayor */
+    margin-bottom: 20px;
+    color: #000; /* Texto negro */
+    text-align: center;
+}
+
+.form-card .subtext a {
+    color: #4F46E5; /* Azul */
+    text-decoration: none;
+    font-weight: bold; /* Destacar enlaces */
+}
+
+.form-card form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrar horizontalmente */
+    width: 100%; /* Ajustar el ancho del formulario */
+}
+
+.form-card label {
+    font-size: 1.1rem; /* Texto más grande */
+    color: #000; /* Texto negro */
+    margin-bottom: 5px;
+    text-align: left;
+    width: 100%; /* Alineación completa */
+}
+
+.form-card input {
+    width: 100%; /* Ocupa el ancho completo */
+    padding: 12px; /* Espaciado interno */
+    margin-bottom: 20px;
+    font-size: 1rem; /* Texto más legible */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 25px; /* Bordes redondeados */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+    outline: none; /* Quitar el borde azul al seleccionar */
+    transition: border-color 0.3s ease; /* Transición en el borde */
     color: black;
 }
 
-.entrada {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%; /* Adjust as needed */
-    background-color: antiquewhite;
-    border: 1px solid aquamarine;
-    padding: 10px;
-    margin:40px;
-    color: black;
+.form-card input:focus {
+    border-color: #4F46E5; /* Cambiar el color del borde al enfocar */
+}
+
+.form-card button {
+    width: 100%; /* Botón del mismo ancho */
+    background-color: #000; /* Negro */
+    color: #FFF; /* Texto blanco */
+    padding: 12px 15px; /* Espaciado */
+    font-size: 1.1rem; /* Texto más grande */
+    border: none;
+    border-radius: 25px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición suave */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.form-card button:hover {
+    background-color: #333; /* Más oscuro */
+    transform: scale(1.02); /* Aumentar ligeramente */
+}
+
+/* Sección de la imagen */
+.image-section {
+    flex: 1;
+    position: relative;
+    background-image: url('../images/serie_collage.jpg'); /* Ruta de tu imagen */
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px; /* Bordes redondeados */
+    height: 90%; /* Imagen más alta */
+}
+
+.image-section .text-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #FFF; /* Texto blanco */
+    font-size: 1rem; /* Texto más grande */
+    line-height: 1.5;
+    width: 90%;
 }

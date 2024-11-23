@@ -3,179 +3,289 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #ffffff;
-  --primary-color: #1f2937; /* Color de fondo para la navegación y otras secciones */
-  --accent-color: #4f46e5; /* Color de acento para botones y elementos destacados */
+    --background: #ffffff;
+    --foreground: #ffffff;
+    --primary-color: #1f2937; /* Color de fondo para la navegación y otras secciones */
+    --accent-color: #e54676; /* Color de acento para botones y elementos destacados */
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #ededed;
-  }
+    :root {
+        --background: #ffffff;
+        --foreground: #ededed;
+    }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    color: var(--foreground);
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("./images/image-mesh-gradient.png");
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+    .text-balance {
+        text-wrap: balance;
+    }
 }
 
 /* Fondo desenfocado y semitransparente */
 .back {
-  position: fixed;
-  width: 100%;
-  height: 100vh;
-  left: 0;
-  top: 0;
-  background: rgba(217, 217, 217, 0.17);
-  backdrop-filter: blur(25px);
-  z-index: -1;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: rgba(217, 217, 217, 0.17);
+    backdrop-filter: blur(25px);
+    z-index: -1;
 }
 
 /* Estilo para el logo de iBinge */
 .ibinge {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url("./images/pngtree-silver-silk-minimalist-background-image_2172665.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.3);
-  background-blend-mode: soft-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("./images/pngtree-silver-silk-minimalist-background-image_2172665.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: soft-light;
 }
 
 /* Estilo de la barra de navegación */
 .navbar {
-  width: 100%;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Barra de Búsqueda */
 .search-bar {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.5rem 1rem;
-  border-radius: 9999px;
-  background-color: var(--foreground);
-  color: var(--primary-color);
-  box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background-color: var(--foreground);
+    color: var(--primary-color);
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Botón de Shuffle */
 .shuffle-button {
-  background-color: var(--accent-color);
-  padding: 0.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--accent-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .shuffle-button:hover {
-  background-color: lighten(var(--accent-color), 10%);
+    background-color: lighten(var(--accent-color), 10%);
 }
 
 /* Sección de Carrusel */
 .carousel-section {
-  background-color: var(--primary-color);
-  padding: 2rem;
-  border-radius: 0.5rem;
+    background-color: var(--primary-color);
+    padding: 2rem;
+    border-radius: 0.5rem;
 }
 
 /* Logos de Plataformas de Streaming */
 .streaming-logos {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  justify-items: center;
-  padding: 2rem;
-  background-color: #000;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-items: center;
+    padding: 2rem;
+    background-color: #000;
 }
 
 .streaming-logos img {
-  width: 50px;
-  height: 50px;
-  transition: transform 0.3s ease;
+    width: 50px;
+    height: 50px;
+    transition: transform 0.3s ease;
 }
 
 .streaming-logos img:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 /* Estilo de la barra de desplazamiento */
 ::-webkit-scrollbar {
-  width: 10px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 6px;
+    background: #f1f1f1;
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 6px;
-  border: 3px solid #f1f1f1;
+    background-color: #888;
+    border-radius: 6px;
+    border: 3px solid #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: blue;
+    background-color: #100f0f;
 }
 /* Fondo desenfocado y semitransparente */
 .ibinge {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-image: url("./images/pngtree-silver-silk-minimalist-background-image_2172665.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: rgba(0, 0, 0, 0.3);
-  background-blend-mode: soft-light;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-image: url("./images/pngtree-silver-silk-minimalist-background-image_2172665.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-blend-mode: soft-light;
 }
 
 /* Estilos del carrusel */
 .carousel-section {
-  background-color: #4a4a4a;
-  padding: 2rem;
-  border-radius: 0.5rem;
+    background-color: #4a4a4a;
+    padding: 2rem;
+    border-radius: 0.5rem;
 }
 
 /* Botón de Shuffle */
 .shuffle-button {
-  background-color: #888;
-  padding: 0.5rem;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background-color: #888;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .shuffle-button:hover {
-  background-color: #666;
+    background-color: #666;
 }
 
 /* Logos de plataformas de streaming */
 .streaming-logos .grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  justify-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    justify-items: center;
+}
+
+/* Contenedor principal de la sección */
+.platform-section {
+    background-color: #000; /* Fondo negro */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem 0;
+    height: 100vh; /* Altura completa */
+}
+
+/* Contenedor del contenido de la sección */
+.platform-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%; /* Espacio para centrar */
+    max-width: 1500px; /* Ancho máximo más amplio */
+    gap: 2rem; /* Espaciado entre las secciones */
+}
+
+/* Sección izquierda */
+.platform-left {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.platform-left h1 {
+    color: white;
+    font-size: 4.5rem; /* Tamaño grande para "Selecciona" */
+    text-align: center;
+    margin: 0;
+}
+
+/* Sección derecha */
+.platform-right {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor de la cuadrícula */
+.platform-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
+    gap: 40px; /* Espaciado entre botones */
+    justify-items: center; /* Centra los botones en cada celda */
+    align-items: center;
+}
+
+/* Botón de plataforma */
+.platform-button {
+
+    width: 180px; /* Ajusta el tamaño del botón */
+    height: 180px;
+    background-size: contain; /* Asegura que la imagen se ajuste dentro del botón */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita repetir la imagen */
+    border: none;
+    border-radius: 10px; /* Bordes redondeados opcionales */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efectos al pasar el mouse */
+}
+
+.platform-button:hover {
+    transform: scale(1.15); /* Efecto de zoom más grande al pasar el mouse */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Sombra más fuerte al pasar */
+}
+
+/* Estilos específicos para cada plataforma */
+.platform-netflix {
+    background-image: url("./images/netflix_1.jpg");
+}
+
+.platform-max {
+    background-image: url("./images/max.jpg");
+}
+
+.platform-hulu {
+    background-image: url("./images/hulu.jpg");
+}
+
+.platform-paramount {
+    background-image: url("./images/paramount.jpg");
+}
+
+.platform-primevideo {
+    background-image: url("./images/prine.jpg");
+}
+
+.platform-peacock {
+    background-image: url("./images/pea.jpg");
+}
+
+.platform-disney {
+    background-image: url("./images/disney.jpg");
+}
+
+.platform-apple {
+    background-image: url("./images/img_apple.jpg");
+}
+
+.platform-crunchyroll {
+    background-image: url("./images/crunchy.jpg");
 }
