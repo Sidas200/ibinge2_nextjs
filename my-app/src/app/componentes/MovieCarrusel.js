@@ -44,39 +44,30 @@ const MovieCarrusel = ({ totalToShow }) => {
     }, []);
 
     useEffect(() => {
-        const fetchShowsByGenres = async () => {
+        const fetchShows = async () => {
             if (favoriteGenres.length === 0) return;
 
             try {
-                const showPromises = favoriteGenres.map((genre) =>
-                    fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(genre)}`)
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error(`Error fetching shows for genre ${genre}`);
-                            }
-                            return response.json();
-                        })
-                        .catch((error) => {
-                            console.error(`Error fetching shows for genre ${genre}:`, error);
-                            return [];
-                        })
+                // Obtener un conjunto amplio de series desde la API
+                const response = await fetch(`https://api.tvmaze.com/shows`);
+                if (!response.ok) {
+                    throw new Error("Error al obtener las series.");
+                }
+
+                const allShows = await response.json();
+
+                // Filtrar las series por los géneros favoritos
+                const filteredShows = allShows.filter((show) =>
+                    show.genres.some((genre) => favoriteGenres.includes(genre))
                 );
 
-                const showsData = await Promise.all(showPromises);
-
-                // Filtrar y combinar resultados
-                const validShows = showsData
-                    .flat() // Aplanar los resultados
-                    .map((result) => result.show) // Extraer el objeto `show`
-                    .filter((show) => show && show.image); // Filtrar solo los shows con imágenes
-
-                setShows(validShows);
+                setShows(filteredShows);
             } catch (error) {
                 console.error("Error al obtener series:", error);
             }
         };
 
-        fetchShowsByGenres();
+        fetchShows();
     }, [favoriteGenres]);
 
     const settings = {
@@ -121,5 +112,6 @@ const MovieCarrusel = ({ totalToShow }) => {
 };
 
 export default MovieCarrusel;
+
 
 
