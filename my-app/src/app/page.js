@@ -3,26 +3,27 @@
 import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import NavBar from "./componentes/NavBar";
-//import ShowList from "./componentes/ShowList";
 import MovieCarrusel from "./componentes/MovieCarrusel";
 import LoadingScreen from "./componentes/LoadingScreen";
 import TestFirebase from "./componentes/TestFirebase";
-import netflix from './images/bb2346582caedef6034cb425150edcbc.jpg'
 
 export default function Home() {
-    const [showIds, setShowIds] = useState([]); // IDs para los shows
+    const [showIds, setShowIds] = useState([]); // IDs para el carrusel
     const [loading, setLoading] = useState(true); // Estado inicial de carga (true para mostrar pantalla)
     const [showNavBar, setShowNavBar] = useState(false); // Estado para controlar la visibilidad de la NavBar
+    const totalShows = 15; // Total de series únicas a mostrar
+    const totalToShow = 5; // Series visibles al mismo tiempo en el carrusel
 
     useEffect(() => {
         const fetchTotalShows = async () => {
             try {
                 const response = await fetch("https://api.tvmaze.com/shows");
                 const data = await response.json();
-                const totalShows = data.length;
+                const totalShowsAvailable = data.length;
 
-                const randomIds = generateRandomIds(5, 1, totalShows);
-                setShowIds(randomIds); // Guardar los IDs aleatorios
+                // Generar IDs únicos para 15 series
+                const newIds = generateUniqueRandomIds(totalShows, 1, totalShowsAvailable, []);
+                setShowIds(newIds);
             } catch (error) {
                 console.error("Error fetching total shows:", error);
             } finally {
@@ -33,11 +34,13 @@ export default function Home() {
         fetchTotalShows();
     }, []);
 
-    const generateRandomIds = (count, min, max) => {
+    const generateUniqueRandomIds = (count, min, max, exclude) => {
         const ids = new Set();
         while (ids.size < count) {
             const randomId = Math.floor(Math.random() * (max - min + 1)) + min;
-            ids.add(randomId);
+            if (!exclude.includes(randomId)) {
+                ids.add(randomId);
+            }
         }
         return Array.from(ids);
     };
@@ -50,7 +53,7 @@ export default function Home() {
             const ids = data
                 .filter((result) => result.show.image) // Filtrar solo shows con imágenes
                 .map((result) => result.show.id); // Extraer IDs de los resultados
-            setShowIds(ids); // Actualizar los IDs
+            setShowIds(ids.slice(0, totalShows)); // Mostrar hasta 15 series únicas
         } catch (error) {
             console.error("Error searching shows:", error);
         } finally {
@@ -72,22 +75,22 @@ export default function Home() {
     }, []);
 
     return (
-        <div style={{overflow: "hidden"}}>
+        <div style={{ overflow: "hidden" }}>
             <div className="ibinge">
-                <Typography sx={{color: "white", fontSize: "100px"}}>iBinge</Typography>
+                <Typography sx={{ color: "white", fontSize: "100px" }}>iBinge</Typography>
             </div>
-            <hr/>
-            {showNavBar && <NavBar onSearch={handleSearch}/>}
+            <hr />
+            {showNavBar && <NavBar onSearch={handleSearch} />}
             {loading ? ( // Mostrar la pantalla de carga mientras `loading` es true
-                <LoadingScreen/>
+                <LoadingScreen />
             ) : (
                 <>
                     <div className="movie-carousel">
-                        <MovieCarrusel showIds={showIds}/> {/* Pasar los IDs al carrusel */}
+                        <MovieCarrusel showIds={showIds} totalToShow={totalToShow} /> {/* Pasar IDs al carrusel */}
                     </div>
                 </>
             )}
-            <hr/>
+            <hr />
             <div className="platform-section">
                 <div className="platform-content">
                     {/* Parte izquierda */}
