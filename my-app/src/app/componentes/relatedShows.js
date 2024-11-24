@@ -2,74 +2,83 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import styles from "./RelatedShows.module.css";
 
-export default function RelatedShows({ showDetails }) {
+export default function RelatedShows() {
+  const [shows, setShows] = useState([]); // Lista de series (incluyendo la aleatoria y las relacionadas)
   const router = useRouter();
-  const [similarShows, setSimilarShows] = useState([]);
 
-  // Fetch para obtener series similares
   useEffect(() => {
-    const fetchSimilarShows = async () => {
+    const fetchShows = async () => {
       try {
+        const response = await fetch("https://api.tvmaze.com/shows");
+        const allShows = await response.json();
 
-        if (!showDetails.genres || showDetails.genres.length === 0) {
-          console.warn("No genres available for recommendations.");
-          setSimilarShows([]);
-          return;
-        }
+        // Seleccionar una serie al azar
+        const randomIndex = Math.floor(Math.random() * allShows.length);
+        const selectedShow = allShows[randomIndex];
 
-        const showPromises = showDetails.genres.map((genre) =>
-          fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(genre)}`)
-            .then((response) => response.json())
-            .catch((error) => {
-              console.error(`Error fetching shows for genre ${genre}:`, error);
-              return [];
-            })
-        );
-
-        const showsData = await Promise.all(showPromises);
-
-        const filteredShows = showsData
-          .flat()
-          .map((result) => result.show)
-          .filter(
-            (show) =>
-              show &&
-              show.id !== showDetails.id && // Excluir el show actual
-              show.image && // Solo incluir shows con imagen
-              show.genres.some((genre) => showDetails.genres.includes(genre)) // Coinciden en género
+        // Filtrar series con géneros similares
+        const matchingShows = allShows.filter((show) => {
+          return (
+            show.id !== selectedShow.id && // Excluir la serie seleccionada
+            show.genres &&
+            selectedShow.genres.some((genre) => show.genres.includes(genre))
           );
+        });
 
-        const randomShows = filteredShows.sort(() => 0.5 - Math.random()).slice(0, 3);
+        // Seleccionar hasta 5 series al azar de las filtradas
+        const randomMatchingShows = matchingShows
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 5);
 
-        setSimilarShows(randomShows);
+        // Agregar la serie aleatoria al principio de la lista
+        setShows([selectedShow, ...randomMatchingShows]);
       } catch (error) {
-        console.error("Error fetching similar shows:", error);
+        console.error("Error fetching shows:", error);
       }
     };
 
-    fetchSimilarShows();
-  }, [showDetails.id, showDetails.genres]);
+    fetchShows();
+  }, []);
 
   const handleShowClick = (id) => {
     router.push(`/series/${id}`); // Redirigir a la página de detalles de la serie
   };
 
+  if (shows.length === 0) {
+    return <p>Loading...</p>; // Mostrar mensaje de carga inicial
+  }
+
   return (
-    <div className={styles.similarShows}>
-      <h2>Series relacionadas</h2>
-      <div className={styles.showList}>
-        {similarShows.map((show) => (
+    <div>
+      <h2>Series Relacionadas</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+        {shows.map((show) => (
           <div
             key={show.id}
-            className={styles.showCard}
             onClick={() => handleShowClick(show.id)}
-            style={{ cursor: "pointer" }}
+            style={{
+              cursor: "pointer",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              padding: "10px",
+              maxWidth: "200px",
+            }}
           >
-            <img src={show.image?.medium || "fallback_image_url"} alt={show.name} />
-            <h3>{show.name}</h3>
-            <p>{show.genres.join(", ")}</p>
+            <img
+              src={show.image?.medium || "https://via.placeholder.com/210x295"}
+              alt={show.name}
+              style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: "5px",
+                marginBottom: "10px",
+              }}
+            />
+            <h3 style={{ fontSize: "18px", marginBottom: "5px" }}>{show.name}</h3>
+            <p style={{ fontSize: "14px", color: "#555" }}>
+              Géneros: {show.genres.join(", ")}
+            </p>
           </div>
         ))}
       </div>
