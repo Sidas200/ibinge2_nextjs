@@ -15,7 +15,6 @@ function SeriesPage({ params }) {
     const [showDetails, setShowDetails] = useState(null);
     const [castDetails, setCastDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [isDelayedLoading, setIsDelayedLoading] = useState(true); // Nuevo estado para retraso en la carga
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const router = useRouter();
 
@@ -48,10 +47,6 @@ function SeriesPage({ params }) {
 
         checkAuth();
         fetchData();
-
-        // Retrasar el fin de la pantalla de carga
-        const timeout = setTimeout(() => setIsDelayedLoading(false), 3000); // 2 segundos
-        return () => clearTimeout(timeout);
     }, [id]);
 
     const handleAddToFavorites = async () => {
@@ -81,35 +76,10 @@ function SeriesPage({ params }) {
         }
     };
 
-    // Pantalla de carga negra con círculo
-    if (isLoading || isDelayedLoading) {
+    if (isLoading) {
         return (
-            <div style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-                backgroundColor: "black",
-                color: "white"
-            }}>
-                <div style={{
-                    width: "50px",
-                    height: "50px",
-                    border: "5px solid white",
-                    borderTop: "5px solid transparent",
-                    borderRadius: "50%",
-                    animation: "spin 1s linear infinite"
-                }} />
-                <style jsx>{`
-                    @keyframes spin {
-                        0% {
-                            transform: rotate(0deg);
-                        }
-                        100% {
-                            transform: rotate(360deg);
-                        }
-                    }
-                `}</style>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
+                <h2>Cargando...</h2>
             </div>
         );
     }
