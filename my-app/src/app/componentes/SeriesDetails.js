@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; // Importamos el hook para redirección
 import Sidebar from './Sidebar';
 import styles from './SeriesDetails.module.css';
+import Link from "next/link";
 
-export default function SeriesDetails({ showDetails }) {
+export default function SeriesDetails({ showDetails, isLoggedIn, handleAddToFavorites }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(null);
   const [seasonData, setSeasonData] = useState([]);
@@ -16,8 +17,9 @@ export default function SeriesDetails({ showDetails }) {
   const [backgroundImage, setBackgroundImage] = useState(null);
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const [similarShows, setSimilarShows] = useState([]);
+  const [isFavorite, setIsFavorite] = useState(false);
 
-  // Fetch para las imágenes del fondo
+  // Imágen del fondo
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -27,7 +29,6 @@ export default function SeriesDetails({ showDetails }) {
             images.find(img => img.type === 'background') ||
             images.find(img => img.type === 'banner') ||
             images[0];
-
         if (background) {
           const img = new Image();
           img.src = background.resolutions?.original?.url || background.resolutions?.medium?.url;
@@ -45,17 +46,16 @@ export default function SeriesDetails({ showDetails }) {
         setIsLoadingImage(false);
       }
     };
-
     fetchImages();
-  }, [showDetails.id]);
+}, [showDetails.id]);
 
-  // Fetch para obtener temporadas y elenco
+  // Temporadas y cast
   useEffect(() => {
-    if (activeTab === 'season') {
-      fetchSeasons();
-    } else if (activeTab === 'cast') {
-      fetchCast();
-    }
+      if (activeTab === 'season') {
+        fetchSeasons();
+      } else if (activeTab === 'cast') {
+        fetchCast();
+      }
   }, [activeTab]);
 
   const fetchSeasons = async () => {
@@ -78,56 +78,26 @@ export default function SeriesDetails({ showDetails }) {
     }
   };
 
-  // Fetch para obtener series similares
-  useEffect(() => {
-    const fetchSimilarShows = async () => {
-      try {
-        if (!showDetails.genres || showDetails.genres.length === 0) {
-          console.warn("No genres available for recommendations.");
-          setSimilarShows([]);
-          return;
-        }
-
-        // Realizamos una búsqueda para cada género del show actual
-        const showPromises = showDetails.genres.map((genre) =>
-            fetch(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(genre)}`)
-                .then(response => response.json())
-                .catch(error => {
-                  console.error(`Error fetching shows for genre ${genre}:`, error);
-                  return [];
-                })
-        );
-
-        const showsData = await Promise.all(showPromises);
-
-        // Filtrar y combinar resultados
-        const filteredShows = showsData
-            .flat()
-            .map(result => result.show)
-            .filter(
-                show => 
-                    show &&
-                    show.id !== showDetails.id && // Excluir el show actual
-                    show.image && // Solo incluir shows con imagen
-                    show.genres.some(genre => showDetails.genres.includes(genre)) // Coinciden en género
-            );
-
-        // Seleccionar 3 series aleatorias
-        const randomShows = filteredShows.sort(() => 0.5 - Math.random()).slice(0, 3);
-
-        setSimilarShows(randomShows);
-      } catch (error) {
-        console.error("Error fetching similar shows:", error);
-      }
-    };
-
-    fetchSimilarShows();
-  }, [showDetails.id, showDetails.genres]);
-
   const handleTabClick = (tab) => {
     setActiveTab(tab);
     setSelectedSeason(null);
     setSeasonData([]);
+  };
+
+  // Favoritos
+  useEffect(() => {
+    const favoriteStatus = localStorage.getItem(`favorite_${showDetails.id}`);
+    if (favoriteStatus === "true") {
+      setIsFavorite(true);
+    }
+  }, [showDetails.id]);
+
+  const handleToggleFavorite = () => {
+    if (!isFavorite) {
+      handleAddToFavorites();
+      setIsFavorite(true);
+      localStorage.setItem(`favorite_${showDetails.id}`, "true");
+    }
   };
 
   const handleSeasonClick = async (seasonId) => {
@@ -150,70 +120,74 @@ export default function SeriesDetails({ showDetails }) {
     setActiveTab(null);
   };
 
-  const handleShowClick = (id) => {
-    router.push(`/series/${id}`); // Redirigir a la página de detalles de la serie
-  };
-
   return (
-      <div className={styles.seriesDetails}>
-        {/* Fondo */}
-        <div
-            className={styles.background}
-            style={{
-              backgroundImage: isLoadingImage
-                  ? 'url("fallback_loading_image_url")'
-                  : `url(${backgroundImage || 'fallback_image_url'})`,
-            }}
+    <div className={styles.seriesDetails}>
+      {/* Home button */}
+        <Link className={styles.home} href="/" passHref>
+          <button> 🏠︎ </button>
+        </Link>
+
+      {/* Fondo */}
+        <div className={styles.background} 
+          style={{ backgroundImage: isLoadingImage ? 'url("fallback_loading_image_url")' : `url(${backgroundImage || 'fallback_image_url'})`, }}
         />
 
-        {/* Título */}
+      {/* Título */}
         <div className={styles.title}>
           <h1>{showDetails.name || "Loading..."}</h1>
         </div>
 
-        {/* Botones */}
         <div className={styles.buttons}>
-          <button onClick={() => handleTabClick('season')}>Temporadas</button>
-          <h2 className={styles.rating}>{rating} ☆</h2>
-          <button onClick={() => handleTabClick('cast')}>Cast</button>
-          <div className={styles.seriesDetailsButtons}>
-            <button onClick={() => router.push('/relatedShows')}>Ver más</button>
-          </div>
+            <button onClick={() => handleTabClick('season')}>Temporadas</button>
+            <h2 className={styles.rating}>{rating} ☆</h2>
+            <button onClick={() => handleTabClick('cast')}>Cast</button>
+
+            {/* Botón de Añadir a Favoritos */}
+            {isLoggedIn ? (
+            <button
+              onClick={handleToggleFavorite}
+              className={styles.favoriteButton}
+              aria-label="Añadir a Favoritos"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill={isFavorite ? "red" : "none"}
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={styles.heartIcon}
+              >
+                <path d="M20.8 4.6c-1.7-1.8-4.5-1.8-6.2 0l-.6.7-.6-.7c-1.7-1.8-4.5-1.8-6.2 0-1.9 2-1.9 5.3 0 7.3l6.8 7.3 6.8-7.3c1.8-2 1.8-5.3 0-7.3z"></path>
+              </svg>
+            </button>
+          ) : (
+            <p style={{ marginTop: "20px", color: "red" }}>
+              Debes iniciar sesión para añadir a favoritos.
+            </p>
+          )}
         </div>
+      {/* Related Shows */}
+      
+          <button className={styles.vermas} onClick={() => router.push('/relatedShows')}>
+            Ver más
+          </button>
 
         {/* Sidebar */}
         {activeTab && (
-            <Sidebar
-                activeTab={activeTab}
-                seasons={seasons}
-                seasonData={seasonData}
-                selectedSeason={selectedSeason}
-                onSeasonClick={handleSeasonClick}
-                onBackToSeasons={handleBackToSeasons}
-                cast={cast}
-                onClose={handleCloseSidebar}
-            />
+          <Sidebar
+            activeTab={activeTab}
+            seasons={seasons}
+            seasonData={seasonData}
+            selectedSeason={selectedSeason}
+            onSeasonClick={handleSeasonClick}
+            onBackToSeasons={handleBackToSeasons}
+            cast={cast}
+            onClose={handleCloseSidebar}
+          />
         )}
-
-        {/* Series Similares */}
-        <div className={styles.similarShows}>
-          <h2>Series relacionadas</h2>
-          <div className={styles.showList}>
-            {similarShows.map((show) => (
-                <div
-                    key={show.id}
-                    className={styles.showCard}
-                    onClick={() => handleShowClick(show.id)} // Redirigir al hacer clic
-                    style={{ cursor: "pointer" }}
-                >
-                  <img src={show.image?.medium || 'fallback_image_url'} alt={show.name} />
-                  <h3>{show.name}</h3>
-                  <p>{show.genres.join(', ')}</p>
-                </div>
-            ))}
-          </div>
-        </div>
       </div>
-  );
+    );
 }
 

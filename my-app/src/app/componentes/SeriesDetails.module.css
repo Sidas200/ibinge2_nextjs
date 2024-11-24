@@ -1,14 +1,14 @@
 .series-details {
-    position: absolute; /* Cambiado a absolute para poder posicionarlo en la esquina */
-    bottom: 20px; /* Ajusta según la distancia que quieras desde el borde inferior */
-    left: 20px; /* Ajusta según la distancia que quieras desde el borde izquierdo */
-    width: auto; /* Ajusta el ancho según necesites */
-    max-width: 300px; /* Un límite de ancho si quieres que no ocupe mucho espacio */
+    position: absolute;
+    bottom: 20px; 
+    left: 20px; 
+    width: auto; 
+    max-width: 300px;
     padding: 10px;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente para que resalte */
-    color: white; /* Color de texto para que contraste */
-    border-radius: 8px; /* Bordes redondeados */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 8px;
     font-family: 'Arsenal SC', serif;
 }
     
@@ -60,8 +60,8 @@
 }
   
 .buttons button:hover {
-    background-color: #ffffff;
-    color: #000;
+    background-color: #ffffff00;
+    color: #ffffff;
     transform: scale(1.05);
 }
 
@@ -93,4 +93,73 @@
     display: flex;
     align-items: center;
     text-align: center;
+}
+
+.favoriteButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.favoriteButton:hover {
+    transform: scale(1.1); /* Pequeño zoom al pasar el ratón */
+}
+
+.heartIcon {
+    width: 24px;
+    height: 24px;
+    stroke: rgb(255, 255, 255);
+    fill: none;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+
+.favoriteButton:hover .heartIcon {
+    stroke: red;
+}
+
+.heartIcon[fill="red"] {
+    stroke: red;
+    fill: red;
+}
+
+.home{
+    font-size: 2em;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-family: 'Arsenal SC', serif;
+    letter-spacing: .1rem;
+    gap: 5vw;
+    padding: 0;
+}
+
+.vermas{
+    display: flex;
+    gap: 10px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-family: 'Arsenal SC', serif;
+    letter-spacing: .1rem;
+    gap: 5vw;
+    background-color: transparent;
+    padding: 10px 20px;
+    color: white; 
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+}
+
+.vermas:hover {
+    background-color: #ffffff00;
+    color: #ffffff;
+    transform: scale(1.05);
 }
