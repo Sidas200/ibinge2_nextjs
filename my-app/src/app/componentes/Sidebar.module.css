@@ -4,13 +4,13 @@
     top: 0;
     height: 100vh;
     width: 40%;
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.250);
     color: white;
     padding: 20px;
     overflow-y: auto;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     transform: translateX(100%);
-    transition: transform 0.3s ease;
+    transition: transform 1s ease-in-out;
     backdrop-filter: blur(3px);
     font-family: 'Arsenal SC', serif;
     display: flex;
@@ -18,22 +18,8 @@
 }
   
 .sidebar.active {
-    transform: translateX(0); /* Muestra el sidebar */
+    transform: translateX(0);
 }
-
-.series {
-  margin: 0 auto; /* Centra horizontalmente */
-  width: 100%; /* Ancho relativo al sidebar */
-  height: 60%; /* Altura relativa al sidebar */
-  display: flex;
-  flex-direction: column; /* Organiza los elementos en columna */
-  border-radius: 8px; /* Opcional: bordes redondeados */
-  padding: 0px; /* Espaciado interno */
-  overflow-y: auto; /* Habilita desplazamiento vertical */
-  gap: 10px; /* Espacio entre botones */
-}
-
-
   
 .closeButton {
     background: transparent;
@@ -62,49 +48,38 @@
   color: white;
   border: none;
   cursor: pointer;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .heading {
   margin-bottom: 8px;
-  font-size: 2rem;
-}
-
-.names{
-  margin: 0 auto; /* Centra horizontalmente */
-  width: 100%; /* Ancho relativo al sidebar */
-  height: 60%; /* Altura relativa al sidebar */
-  display: flex;
-  flex-direction: column; /* Organiza los elementos en columna */
-  border-radius: 8px; /* Opcional: bordes redondeados */
-  padding: 0px; /* Espaciado interno */
-  overflow-y: auto; /* Habilita desplazamiento vertical */
-  gap: 10px; /* Espacio entre botones */
-}
-
-.episodes{
-  margin: 0 auto; /* Centra horizontalmente */
-  width: 100%; /* Ancho relativo al sidebar */
-  height: 60%; /* Altura relativa al sidebar */
-  display: flex;
-  flex-direction: column; /* Organiza los elementos en columna */
-  border-radius: 8px; /* Opcional: bordes redondeados */
-  padding: 0px; /* Espaciado interno */
-  overflow-y: auto; /* Habilita desplazamiento vertical */
-  gap: 10px; /* Espacio entre botones */
+  font-size: 1.5rem;
 }
 
 .button {
   border: none;
   padding: 0px 0px;
   cursor: pointer;
-  width: 50%; /* Botones ocupan todo el ancho del contenedor */
-  border-radius: 4px; /* Bordes redondeados para los botones */
+  width: 50%;
+  border-radius: 4px;
   font-size: 1rem;
-  transition: background-color 5s ease;
+  transition: background-color .8s ease, font-size .8s ease;;
+  text-align: left;
 }
 
 .button:hover {
-  font-size: 1.2rem;
-  
+  font-size: 1.1rem;
+}
+
+.series, .names, .episodes {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%; 
+  height: auto;
+  max-height: 60%;
+  overflow-y: auto; 
+  padding: 10px;
+  gap: 10px; 
+  white-space: normal;
 }
