@@ -80,6 +80,7 @@ export default function UserProfile() {
 
         fetchUserData();
     }, []);
+    
 
     const handleDeleteFavorite = async (favoriteId) => {
         try {
