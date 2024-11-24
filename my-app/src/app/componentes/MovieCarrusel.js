@@ -88,33 +88,37 @@ const MovieCarrusel = ({ totalToShow }) => {
     };
 
     return (
-        <div className="movie-carousel-container">
-            {shows.length > 0 ? (
-                <Slider {...settings}>
-                    {shows.map((show) => (
-                        <Link key={show.id} href={`/series/${show.id}`} passHref>
-                            <div className="movie-card">
-                                {show.image && show.image.medium ? (
-                                    <img
-                                        className="movie-card-media"
-                                        src={show.image.medium}
-                                        alt={show.name || "Imagen no disponible"}
-                                    />
-                                ) : (
-                                    <div className="movie-card-placeholder">
-                                        <p>Imagen no disponible</p>
-                                    </div>
-                                )}
-                            </div>
-                        </Link>
-                    ))}
-                </Slider>
-            ) : (
-                <p style={{ textAlign: "center", color: "#000", marginTop: "20px" }}>
-                    No hay series disponibles.
-                </p>
-            )}
+        <div className="midpage">
+            <h1>¿Ya viste...?</h1>
+            <div className="movie-carousel-container">
+                {shows.length > 0 ? (
+                    <Slider {...settings}>
+                        {shows.map((show) => (
+                            <Link key={show.id} href={`/series/${show.id}`} passHref>
+                                <div className="movie-card">
+                                    {show.image && show.image.medium ? (
+                                        <img
+                                            className="movie-card-media"
+                                            src={show.image.medium}
+                                            alt={show.name || "Imagen no disponible"}
+                                        />
+                                    ) : (
+                                        <div className="movie-card-placeholder">
+                                            <p>Imagen no disponible</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </Link>
+                        ))}
+                    </Slider>
+                ) : (
+                    <p style={{ textAlign: "center", color: "#000", marginTop: "20px" }}>
+                        No hay series disponibles.
+                    </p>
+                )}
+            </div>
         </div>
+
     );
 };
 

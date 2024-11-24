@@ -8,11 +8,11 @@ import LoadingScreen from "./componentes/LoadingScreen";
 import TestFirebase from "./componentes/TestFirebase";
 
 export default function Home() {
-    const [showIds, setShowIds] = useState([]); // IDs para el carrusel
-    const [loading, setLoading] = useState(true); // Estado inicial de carga (true para mostrar pantalla)
-    const [showNavBar, setShowNavBar] = useState(false); // Estado para controlar la visibilidad de la NavBar
-    const totalShows = 15; // Total de series únicas a mostrar
-    const totalToShow = 5; // Series visibles al mismo tiempo en el carrusel
+    const [showIds, setShowIds] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [showNavBar, setShowNavBar] = useState(false);
+    const totalShows = 15;
+    const totalToShow = 5;
 
     useEffect(() => {
         const fetchTotalShows = async () => {
@@ -21,13 +21,12 @@ export default function Home() {
                 const data = await response.json();
                 const totalShowsAvailable = data.length;
 
-                // Generar IDs únicos para 15 series
                 const newIds = generateUniqueRandomIds(totalShows, 1, totalShowsAvailable, []);
                 setShowIds(newIds);
             } catch (error) {
                 console.error("Error fetching total shows:", error);
             } finally {
-                setTimeout(() => setLoading(false), 1000); // Simular carga por 1 segundo
+                setTimeout(() => setLoading(false), 1000);
             }
         };
 
@@ -46,18 +45,18 @@ export default function Home() {
     };
 
     const handleSearch = async (query) => {
-        setLoading(true); // Mostrar pantalla de carga al buscar
+        setLoading(true);
         try {
             const response = await fetch(`https://api.tvmaze.com/search/shows?q=${query}`);
             const data = await response.json();
             const ids = data
-                .filter((result) => result.show.image) // Filtrar solo shows con imágenes
-                .map((result) => result.show.id); // Extraer IDs de los resultados
-            setShowIds(ids.slice(0, totalShows)); // Mostrar hasta 15 series únicas
+                .filter((result) => result.show.image)
+                .map((result) => result.show.id);
+            setShowIds(ids.slice(0, totalShows));
         } catch (error) {
             console.error("Error searching shows:", error);
         } finally {
-            setTimeout(() => setLoading(false), 1000); // Simular carga por 1 segundo
+            setTimeout(() => setLoading(false), 1000);
         }
     };
 
@@ -81,23 +80,18 @@ export default function Home() {
             </div>
             <hr />
             {showNavBar && <NavBar onSearch={handleSearch} />}
-            {loading ? ( // Mostrar la pantalla de carga mientras `loading` es true
+            {loading ? (
                 <LoadingScreen />
             ) : (
                 <>
                     <div className="movie-carousel">
-                        <MovieCarrusel showIds={showIds} totalToShow={totalToShow} /> {/* Pasar IDs al carrusel */}
+                        <MovieCarrusel showIds={showIds} totalToShow={totalToShow} />
                     </div>
                 </>
             )}
             <hr />
             <div className="platform-section">
                 <div className="platform-content">
-                    {/* Parte izquierda */}
-                    <div className="platform-left">
-                        <h1>Selecciona</h1>
-                    </div>
-
                     {/* Parte derecha */}
                     <div className="platform-right">
                         <div className="platform-grid">

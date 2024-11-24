@@ -41,7 +41,7 @@ body {
     z-index: -1;
 }
 
-/* Estilo para el logo de iBinge */
+/* Sección principal de la plataforma */
 .ibinge {
     display: flex;
     justify-content: center;
@@ -55,7 +55,6 @@ body {
     background-blend-mode: soft-light;
 }
 
-/* Estilo de la barra de navegación */
 .navbar {
     width: 100%;
     padding: 1rem 2rem;
@@ -66,7 +65,6 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Barra de Búsqueda */
 .search-bar {
     width: 100%;
     max-width: 400px;
@@ -77,49 +75,6 @@ body {
     box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Botón de Shuffle */
-.shuffle-button {
-    background-color: var(--accent-color);
-    padding: 0.5rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.shuffle-button:hover {
-    background-color: lighten(var(--accent-color), 10%);
-}
-
-/* Sección de Carrusel */
-.carousel-section {
-    background-color: var(--primary-color);
-    padding: 2rem;
-    border-radius: 0.5rem;
-}
-
-/* Logos de Plataformas de Streaming */
-.streaming-logos {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    justify-items: center;
-    padding: 2rem;
-    background-color: #000;
-}
-
-.streaming-logos img {
-    width: 50px;
-    height: 50px;
-    transition: transform 0.3s ease;
-}
-
-.streaming-logos img:hover {
-    transform: scale(1.1);
-}
-
-/* Estilo de la barra de desplazamiento */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -138,122 +93,49 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #100f0f;
 }
-/* Fondo desenfocado y semitransparente */
-.ibinge {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-image: url("./images/pngtree-silver-silk-minimalist-background-image_2172665.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(0, 0, 0, 0.3);
-    background-blend-mode: soft-light;
-}
 
-/* Estilos del carrusel */
-.carousel-section {
-    background-color: #4a4a4a;
-    padding: 2rem;
-    border-radius: 0.5rem;
-}
-
-/* Botón de Shuffle */
-.shuffle-button {
-    background-color: #888;
-    padding: 0.5rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.shuffle-button:hover {
-    background-color: #666;
-}
-
-/* Logos de plataformas de streaming */
-.streaming-logos .grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    justify-items: center;
-}
-
-/* Contenedor principal de la sección */
+/* Sección de plataformas */
 .platform-section {
-    background-color: #000; /* Fondo negro */
+    background-color: #000;
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    padding: 2rem 0;
-    height: 100vh; /* Altura completa */
+    height: 90vh;
 }
 
-/* Contenedor del contenido de la sección */
 .platform-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%; /* Espacio para centrar */
-    max-width: 1500px; /* Ancho máximo más amplio */
-    gap: 2rem; /* Espaciado entre las secciones */
+    width: 100%;
+    max-width: 1500px;
+    gap: 2rem;
 }
 
-/* Sección izquierda */
-.platform-left {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.platform-left h1 {
-    color: white;
-    font-size: 4.5rem; /* Tamaño grande para "Selecciona" */
-    text-align: center;
-    margin: 0;
-}
-
-/* Sección derecha */
-.platform-right {
-    flex: 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Contenedor de la cuadrícula */
 .platform-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-    gap: 40px; /* Espaciado entre botones */
-    justify-items: center; /* Centra los botones en cada celda */
+    gap: 60px;
+    row-gap: 60px;
+    justify-items: center;
     align-items: center;
+    padding: 5vh;
 }
 
-/* Botón de plataforma */
 .platform-button {
-
-    width: 180px; /* Ajusta el tamaño del botón */
-    height: 180px;
-    background-size: contain; /* Asegura que la imagen se ajuste dentro del botón */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat; /* Evita repetir la imagen */
-    border: none;
-    border-radius: 10px; /* Bordes redondeados opcionales */
+    width: 200px;
+    height: 100px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
     cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efectos al pasar el mouse */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .platform-button:hover {
-    transform: scale(1.15); /* Efecto de zoom más grande al pasar el mouse */
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Sombra más fuerte al pasar */
+    transform: scale(1.15);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
 }
 
-/* Estilos específicos para cada plataforma */
 .platform-netflix {
     background-image: url("./images/netflix_1.jpg");
 }
