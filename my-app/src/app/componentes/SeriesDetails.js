@@ -6,7 +6,7 @@ import Sidebar from './Sidebar';
 import styles from './SeriesDetails.module.css';
 
 export default function SeriesDetails({ showDetails }) {
-  const router = useRouter(); // Inicializamos el router
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState(null);
   const [seasonData, setSeasonData] = useState([]);
   const [seasons, setSeasons] = useState([]);
@@ -105,7 +105,8 @@ export default function SeriesDetails({ showDetails }) {
             .flat()
             .map(result => result.show)
             .filter(
-                show => show &&
+                show => 
+                    show &&
                     show.id !== showDetails.id && // Excluir el show actual
                     show.image && // Solo incluir shows con imagen
                     show.genres.some(genre => showDetails.genres.includes(genre)) // Coinciden en género
@@ -175,6 +176,9 @@ export default function SeriesDetails({ showDetails }) {
           <button onClick={() => handleTabClick('season')}>Temporadas</button>
           <h2 className={styles.rating}>{rating} ☆</h2>
           <button onClick={() => handleTabClick('cast')}>Cast</button>
+          <div className={styles.seriesDetailsButtons}>
+            <button onClick={() => router.push('/relatedShows')}>Ver más</button>
+          </div>
         </div>
 
         {/* Sidebar */}
