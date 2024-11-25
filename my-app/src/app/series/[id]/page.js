@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "../../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, deleteDoc } from "firebase/firestore";
 import Cookies from "js-cookie";
 import SeriesDetails from "../../componentes/SeriesDetails";
 import { fetchShowDetails, fetchCast } from "../../lib/mazeApi";
@@ -17,8 +17,9 @@ function SeriesPage({ params }) {
     const [castDetails, setCastDetails] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
 
-    // Comprobar si el usuario está autenticado
+    // Comprobar si el usuario está autenticado y cargar datos
     useEffect(() => {
         const checkAuth = () => {
             const token = Cookies.get("authToken");
@@ -40,6 +41,14 @@ function SeriesPage({ params }) {
 
                 setShowDetails(showData);
                 setCastDetails(castData);
+
+                // Verificar si la serie está en favoritos
+                const user = auth.currentUser;
+                if (user) {
+                    const favoriteRef = doc(db, "favorites", `${user.uid}_${id}`);
+                    const favoriteDoc = await getDoc(favoriteRef);
+                    setIsFavorite(favoriteDoc.exists());
+                }
             } catch (error) {
                 console.error("Error fetching series data:", error);
                 setIsLoading(false);
@@ -50,7 +59,8 @@ function SeriesPage({ params }) {
         fetchData();
     }, [id]);
 
-    const handleAddToFavorites = async () => {
+    // Manejar agregar/eliminar de favoritos
+    const handleToggleFavorite = async () => {
         try {
             const user = auth.currentUser;
             if (!user) {
@@ -58,18 +68,27 @@ function SeriesPage({ params }) {
                 return;
             }
 
-            const favoriteData = {
-                userId: user.uid,
-                showId: id,
-                title: showDetails.name,
-                image: showDetails.image?.original || null,
-                genres: showDetails.genres || [],
-                timestamp: new Date(),
-            };
+            const favoriteRef = doc(db, "favorites", `${user.uid}_${id}`);
+            if (isFavorite) {
+                // Eliminar de favoritos
+                await deleteDoc(favoriteRef);
+                setIsFavorite(false);
+            } else {
+                // Agregar a favoritos
+                const favoriteData = {
+                    userId: user.uid,
+                    showId: id,
+                    title: showDetails.name,
+                    image: showDetails.image?.original || null,
+                    genres: showDetails.genres || [],
+                    timestamp: new Date(),
+                };
 
-            await setDoc(doc(db, "favorites", `${user.uid}_${id}`), favoriteData);
+                await setDoc(favoriteRef, favoriteData);
+                setIsFavorite(true);
+            }
         } catch (error) {
-            console.error("Error añadiendo a favoritos:", error);
+            console.error("Error manejando favoritos:", error);
         }
     };
 
@@ -89,7 +108,8 @@ function SeriesPage({ params }) {
                         showDetails={showDetails}
                         castDetails={castDetails}
                         isLoggedIn={isLoggedIn}
-                        handleAddToFavorites={handleAddToFavorites}
+                        handleToggleFavorite={handleToggleFavorite}
+                        isFavorite={isFavorite}
                     />
                 ) : (
                     <h2>No se pudieron cargar los detalles de la serie.</h2>
