@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import NavBar from "./componentes/NavBar";
 import MovieCarrusel from "./componentes/MovieCarrusel";
 import LoadingScreen from "./componentes/LoadingScreen";
-import TestFirebase from "./componentes/TestFirebase";
+import styles from "./componentes/NavBar.module.css";
 
 export default function Home() {
     const [showIds, setShowIds] = useState([]);
@@ -75,9 +75,12 @@ export default function Home() {
 
     return (
         <div style={{ overflow: "hidden" }}>
-            <div className="ibinge">
-                <Typography sx={{ color: "white", fontSize: "100px" }}>iBinge</Typography>
+            <div className="fondito">
+                <div className="ibinge">
+                    <Typography sx={{ color: "white", fontSize: "100px" }}>iBinge</Typography>
+                </div>
             </div>
+
             <hr />
             {showNavBar && <NavBar onSearch={handleSearch} />}
             {loading ? (

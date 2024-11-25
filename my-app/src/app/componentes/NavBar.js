@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { AppBar, Toolbar, Typography, Box } from "@mui/material";
+import React, { useEffect, useState } from 'react';
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import "../nav_bar.css";
+import styles from './NavBar.module.css';
 
 const NavBar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,7 +12,7 @@ const NavBar = () => {
 
     useEffect(() => {
         const token = Cookies.get("authToken");
-        setIsLoggedIn(!!token); // Actualiza el estado según la existencia del token
+        setIsLoggedIn(!!token);
     }, []);
 
     const handleSearch = (query) => {
@@ -23,64 +22,27 @@ const NavBar = () => {
     };
 
     return (
-        <AppBar
-            position="fixed"
-            className="fondo"
-            sx={{
-                boxShadow: "none",
-                background: "transparent",
-                display: "flex",
-                justifyContent: "center",
-            }}
-        >
-            <Toolbar
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                }}
-            >
-                <Box display="flex">
-                    <SearchBar onSearch={handleSearch} />
-                </Box>
-                <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{ flexGrow: 1 }}
-                >
-                    <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                textAlign: "center",
-                                fontWeight: "bold",
-                                color: "black",
-                            }}
-                        >
-                            IB
-                        </Typography>
+        <div className={styles.fondo}>
+            <div className={styles.content}>
+                <SearchBar className={styles.search} onSearch={handleSearch} />
+                <div className={styles.logo}>
+                    <Link href="/">
+                        <span>iB</span>
                     </Link>
-                </Box>
-                <Box display="flex" sx={{ color: "black" }}>
+                </div>
+                <div className={styles.account}>
                     {isLoggedIn ? (
-                        <Link
-                            href="/perfil"
-                            style={{ textDecoration: "none", color: "inherit" }}
-                        >
-                            Perfil
+                        <Link href="/perfil" className={styles.link}>
+                            Cuenta
                         </Link>
                     ) : (
-                        <Link
-                            href="/login"
-                            style={{ textDecoration: "none", color: "inherit" }}
-                        >
+                        <Link href="/login" className={styles.link}>
                             Login
                         </Link>
                     )}
-                </Box>
-            </Toolbar>
-        </AppBar>
+                </div>
+            </div>
+        </div>
     );
 };
 
