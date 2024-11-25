@@ -1,7 +1,6 @@
 body {
     color: var(--foreground);
     background: #000;
-
     background-image: url("../images/rsback.jpg");
     font-family: 'Arsenal SC', serif;
     background-size: cover;
