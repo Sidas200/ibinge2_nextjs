@@ -7,11 +7,11 @@ import styles from "./SeriesDetails.module.css";
 import Link from "next/link";
 
 export default function SeriesDetails({
-                                        showDetails,
-                                        isLoggedIn,
-                                        handleToggleFavorite,
-                                        isFavorite: initialIsFavorite,
-                                      }) {
+  showDetails,
+  isLoggedIn,
+  handleToggleFavorite,
+  isFavorite: initialIsFavorite,
+  }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(null);
   const [seasonData, setSeasonData] = useState([]);
@@ -23,12 +23,10 @@ export default function SeriesDetails({
   const [isLoadingImage, setIsLoadingImage] = useState(true);
   const [isFavorite, setIsFavorite] = useState(initialIsFavorite);
 
-  // Sincronizar el estado inicial de favoritos
   useEffect(() => {
     setIsFavorite(initialIsFavorite);
   }, [initialIsFavorite]);
 
-  // Cargar imagen de fondo
   useEffect(() => {
     const fetchImages = async () => {
       try {
@@ -62,7 +60,6 @@ export default function SeriesDetails({
     fetchImages();
   }, [showDetails.id]);
 
-  // Cargar temporadas y elenco al seleccionar pestaña
   useEffect(() => {
     if (activeTab === "season") {
       fetchSeasons();
@@ -125,12 +122,9 @@ export default function SeriesDetails({
 
   return (
       <div className={styles.seriesDetails}>
-        {/* Botón para regresar al inicio */}
         <Link className={styles.home} href="/" passHref>
           <button>🏠︎</button>
         </Link>
-
-        {/* Imagen de fondo */}
         <div
             className={styles.background}
             style={{
@@ -140,18 +134,15 @@ export default function SeriesDetails({
             }}
         />
 
-        {/* Título de la serie */}
         <div className={styles.title}>
           <h1>{showDetails.name || "Cargando..."}</h1>
         </div>
 
-        {/* Botones de interacción */}
         <div className={styles.buttons}>
           <button onClick={() => handleTabClick("season")}>Temporadas</button>
           <h2 className={styles.rating}>{rating} ☆</h2>
           <button onClick={() => handleTabClick("cast")}>Reparto</button>
 
-          {/* Botón de favoritos */}
           {isLoggedIn ? (
               <button
                   onClick={handleToggleFavorite}
@@ -178,7 +169,6 @@ export default function SeriesDetails({
           )}
         </div>
 
-        {/* Botón para series relacionadas */}
         <button
             className={styles.vermas}
             onClick={() => router.push("/relatedShows")}
@@ -186,7 +176,6 @@ export default function SeriesDetails({
           Ver más
         </button>
 
-        {/* Sidebar */}
         {activeTab && (
             <Sidebar
                 activeTab={activeTab}
