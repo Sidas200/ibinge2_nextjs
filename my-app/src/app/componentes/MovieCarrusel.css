@@ -37,14 +37,14 @@
     display: flex !important;
     justify-content: center;
     align-items: center;
-    height: 40em;
+    height: 60vh;
 }
 
 .movie-card {
     cursor: pointer;
     border-radius: 12px;
     padding: 15px;
-    width: 23em; 
+    width: 20vw; 
     height: fit-content;
     opacity: 0.9;
     background-color: rgba(0, 0, 0, 0.6);
