@@ -127,12 +127,10 @@ export default function SeriesDetails({ showDetails, isLoggedIn, handleAddToFavo
           <button> 🏠︎ </button>
         </Link>
 
-      {/* Fondo */}
         <div className={styles.background} 
           style={{ backgroundImage: isLoadingImage ? 'url("fallback_loading_image_url")' : `url(${backgroundImage || 'fallback_image_url'})`, }}
         />
 
-      {/* Título */}
         <div className={styles.title}>
           <h1>{showDetails.name || "Loading..."}</h1>
         </div>
@@ -142,7 +140,6 @@ export default function SeriesDetails({ showDetails, isLoggedIn, handleAddToFavo
             <h2 className={styles.rating}>{rating} ☆</h2>
             <button onClick={() => handleTabClick('cast')}>Cast</button>
 
-            {/* Botón de Añadir a Favoritos */}
             {isLoggedIn ? (
             <button
               onClick={handleToggleFavorite}
@@ -163,9 +160,11 @@ export default function SeriesDetails({ showDetails, isLoggedIn, handleAddToFavo
               </svg>
             </button>
           ) : (
-            <p style={{ marginTop: "20px", color: "red" }}>
-              Inicia sesión.
+            <Link href="/login" style={{ textDecoration: "none", color: "inherit" }}>
+            <p className={styles.warning}>
+              Inicia sesión
             </p>
+          </Link>
           )}
         </div>
       {/* Related Shows */}
