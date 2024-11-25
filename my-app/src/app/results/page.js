@@ -2,7 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import NavBar from "../componentes/NavBar";
-import "./Results.css"; // Usar el CSS proporcionado
+import "./Results.css"; 
+
 
 export default function Page() {
     const searchParams = useSearchParams();
@@ -34,7 +35,7 @@ export default function Page() {
     return (
         <div className="result-container">
             <NavBar onSearch={handleSearch} />
-            <h1 className="result-title">Resultados de Búsqueda</h1>
+            <h1 className="result-title">Resultados de búsqueda</h1>
             {error ? (
                 <p className="error-message">{error}</p>
             ) : (
@@ -48,13 +49,17 @@ export default function Page() {
                                 className="show-card-link"
                             >
                                 <div className="show-card">
-                                    <img
-                                        src={
-                                            show.image?.medium ||
-                                            "https://via.placeholder.com/200x500?text=No+Image"
-                                        }
-                                        alt={show.name || "Sin título"}
-                                    />
+                                    {show.image && show.image.medium ? (
+                                        <img
+                                            className="imagen"
+                                            src={show.image.medium}
+                                            alt={show.name || "Sin título"}
+                                        />
+                                    ) : (
+                                        <div className="show-card-placeholder">
+
+                                        </div>
+                                    )}
                                     <div className="show-card-title">
                                         {show.name || "Sin título"}
                                     </div>

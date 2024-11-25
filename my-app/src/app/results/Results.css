@@ -1,86 +1,122 @@
-/* Fondo general */
 body {
     color: var(--foreground);
-    background: #000; /* Fondo negro */
-    background-image: url("../images/image-mesh-gradient.png");
+    background: #000;
     background-image: url("../images/rsback.jpg");
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Arsenal SC', serif;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
-/* Contenedor principal para los resultados */
+
 .result-container {
-    max-width: 94%; /* Ocupar 94% del ancho de la pantalla, dejando 3% a cada lado */
-    margin: 0 auto; /* Centrar el contenedor */
-    padding: 80px 2%; /* Espaciado superior e inferior */
-    min-height: 100vh; /* Ocupar toda la altura de la ventana */
+    max-width: 94%;
+    margin: 3vh 3vw;
+    margin-top: 11vh;
+    padding: 3vh 3vw;
+    min-height: 100vh;
     border-radius: 12px;
 }
 
-/* Título de resultados */
 .result-title {
     font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 2vh;
     font-weight: bold;
-    background: linear-gradient(90deg, #ffffff, #bbbbbb); /* Degradado blanco/gris claro */
+    background: linear-gradient(90deg, #ffffff, #ffffff); /* Degradado blanco/gris claro */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-shadow: 0px 3px 6px rgba(255, 255, 255, 0.2);
 }
 
-/* Línea decorativa debajo del título */
 .result-title::after {
     content: '';
     display: block;
     margin: 10px auto;
     width: 100px;
     height: 4px;
-    background: #ffffff; /* Blanco */
+    background: #ffffff;
     border-radius: 2px;
 }
 
-/* Contenedor de la lista de shows */
 .show-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* Mostrar 5 series por fila */
-    gap: 20px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4vw;
     padding: 20px;
 }
 
-/* Estilo de cada tarjeta */
 .show-card {
-    background: #1a1a1a; /* Fondo oscuro */
+    background: #1a1a1a;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8); /* Sombra intensa */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil blanco */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 17vw;
+    padding: 10px;
 }
 
 .show-card:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3); /* Sombra más clara al pasar */
-    border-color: #666; /* Borde gris claro */
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+    border-color: #666; 
 }
 
-/* Imagen en las tarjetas */
 .show-card img {
     width: 100%;
-    height: 500px; /* Aumentar el alto para un formato tipo póster */
-    object-fit: contain; /* Mostrar la imagen completa sin recortar */
-    background-color: #333; /* Fondo gris oscuro */
+    height: 70%;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
 }
 
-/* Título dentro de la tarjeta */
+.imagen{
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
 .show-card-title {
-    font-size: 1.2rem; /* Texto ligeramente más grande */
-    font-weight: bold;
-    color: #fff; /* Texto blanco */
+    font-size: 1rem;
+    color: #fff;
     margin: 10px 0;
-    text-transform: uppercase; /* Texto en mayúsculas */
     letter-spacing: 0.5px;
-    font-family: 'Roboto', sans-serif; /* Tipografía moderna */
+    font-family: 'Arsenal SC', serif;
+    max-width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word; 
+    word-break: break-word; 
+    line-height: 1.2; 
+    padding: 5px;
+}
+
+.show-card-placeholder {
+    background-image: url("../images/noimageplaceholder.png");
+    width: 100%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.show-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4vw;
+    padding: 20px;
 }
