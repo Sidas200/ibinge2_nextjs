@@ -20,7 +20,7 @@ body {
     color: var(--foreground);
     background: var(--background);
     font-family: Arial, Helvetica, sans-serif;
-    background-image: url("./images/image-mesh-gradient.png");
+    background-color: #e5e5e5;
 }
 
 @layer utilities {
@@ -29,7 +29,6 @@ body {
     }
 }
 
-/* Fondo desenfocado y semitransparente */
 .back {
     position: fixed;
     width: 100%;
@@ -47,7 +46,6 @@ body {
     width: 100%;
 }
 
-/* Fondo con filtro */
 .fondito::before {
     content: "";
     position: absolute;
@@ -60,17 +58,16 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     filter: blur(20px);
-    z-index: -1; /* Poner el filtro en una capa por debajo */
+    z-index: -1;
 }
 
-/* Sección con la imagen 'iBinge', sin filtro */
 .ibinge {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3); /* Mantén la capa oscura si es necesario */
-    z-index: 1; /* Asegúrate de que esté por encima del fondo con filtro */
+    background-color: rgba(0, 0, 0, 0.3); 
+    z-index: 1;
 }
 
 .search-bar {
@@ -102,37 +99,38 @@ body {
     background-color: #100f0f;
 }
 
-/* Sección de plataformas */
 .platform-section {
-    background-color: #000;
+    background-color: #000; /* Fondo negro */
     display: flex;
-    align-items: center;
-    height: 90vh;
-    margin-top: 11vh;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 90vh; /* Ocupa el 90% de la altura de la ventana */
+    margin-top: 10vh; /* Espaciado superior */
 }
 
 .platform-content {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 1500px;
-    gap: 2rem;
+    justify-content: center; /* Centra el grid horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 1200px; /* Ancho máximo para el contenido */
+    gap: 2rem; /* Espaciado entre elementos secundarios */
+    padding: 2rem; /* Espaciado interno */
 }
 
 .platform-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-    gap: 60px;
-    row-gap: 60px;
-    justify-items: center;
-    align-items: center;
-    padding: 5vh;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
+    gap: 7vh 8vw; /* Espaciado uniforme entre columnas y filas */
+    justify-content: center; /* Centra el grid horizontalmente */
+    align-items: center; /* Centra el grid verticalmente */
+    padding: 2rem; /* Espaciado interno */
 }
 
+
 .platform-button {
-    width: 300px;
-    height: 100px;
+    width: 250px;
+    height: 150px;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

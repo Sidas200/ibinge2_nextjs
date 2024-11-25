@@ -33,7 +33,7 @@ const NavBar = ({ onSearch }) => {
                 <div className={styles.account}>
                     {isLoggedIn ? (
                         <Link href="/perfil" className={styles.link}>
-                            Perfil
+                            Cuenta
                         </Link>
                     ) : (
                         <Link href="/login" className={styles.link}>
