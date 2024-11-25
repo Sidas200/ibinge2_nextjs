@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import Cookies from "js-cookie"; // Importa js-cookie
+import Cookies from "js-cookie";
 import { auth } from "../../firebase";
 import NavBar from "../componentes/NavBar";
 import './login.css';
@@ -24,13 +24,10 @@ export default function Login() {
             const userCredential = await signInWithEmailAndPassword(auth, credentials.email, credentials.password);
             const user = userCredential.user;
 
-            // Obtén el token de ID del usuario
             const token = await user.getIdToken();
 
-            // Guarda el token en una cookie
-            Cookies.set("authToken", token, { expires: 7 }); // Cookie expira en 7 días
+            Cookies.set("authToken", token, { expires: 7 });
 
-            // Enviar el token al servidor (opcional si tienes API protegida)
             await fetch("/api/auth", {
                 method: "POST",
                 headers: {
@@ -39,7 +36,6 @@ export default function Login() {
                 body: JSON.stringify({ token }),
             });
 
-            // Redirige al usuario a la página principal
             router.push("/");
         } catch (error) {
             setError("Credenciales incorrectas. Inténtalo de nuevo.");

@@ -37,7 +37,7 @@ const NavBar = () => {
                         </Link>
                     ) : (
                         <Link href="/login" className={styles.link}>
-                            Login
+                            Iniciar sesión
                         </Link>
                     )}
                 </div>
