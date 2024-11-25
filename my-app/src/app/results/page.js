@@ -1,13 +1,12 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { Box, Typography } from '@mui/material';
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import NavBar from "../componentes/NavBar";
-import ShowList from "../componentes/ShowList";
+import "./Results.css"; // Usar el CSS proporcionado
 
 export default function Page() {
     const searchParams = useSearchParams();
-    const query = searchParams.get('query');
+    const query = searchParams.get("query");
     const [shows, setShows] = useState([]);
     const [error, setError] = useState(null);
 
@@ -19,58 +18,52 @@ export default function Page() {
 
     const handleSearch = async (searchQuery) => {
         try {
-            const response = await fetch(`https://api.tvmaze.com/search/shows?q=${searchQuery}`);
-            if (!response.ok) throw new Error('Error fetching data');
+            const response = await fetch(
+                `https://api.tvmaze.com/search/shows?q=${searchQuery}`
+            );
+            if (!response.ok) throw new Error("Error fetching data");
             const data = await response.json();
             setShows(data);
             setError(null);
         } catch (error) {
-            console.error('Error fetching data:', error);
-            setError('Ocurrió un error al buscar series. Intenta de nuevo.');
+            console.error("Error fetching data:", error);
+            setError("Ocurrió un error al buscar series. Intenta de nuevo.");
         }
     };
 
     return (
-        <Box
-            sx={{ width: '100%', maxWidth: '1600px', margin: '20px auto', padding: '0 0.5%', paddingTop: '80px' }} // Ajuste de paddingTop
-        >
+        <div className="result-container">
             <NavBar onSearch={handleSearch} />
-            <Typography
-                variant="h3"
-                align="center"
-                marginY={4}
-                sx={{
-                    marginBottom: '20px',
-                    background: 'linear-gradient(90deg, #4f46e5, #6b7280)', // Degradado de color
-                    WebkitBackgroundClip: 'text', // Para que el degradado solo afecte al texto
-                    WebkitTextFillColor: 'transparent', // Hace el fondo transparente y permite ver el degradado
-                    fontWeight: 'bold',
-                    fontFamily: 'Arial, sans-serif',
-                    position: 'relative',
-                    display: 'inline-block'
-                }}
-            >
-                Resultados de Búsqueda
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        width: '100%',
-                        height: '4px',
-                        backgroundColor: '#4f46e5', // Color de la línea de fondo
-                        bottom: '-6px',
-                        left: 0,
-                        borderRadius: '2px',
-                    }}
-                />
-            </Typography>
+            <h1 className="result-title">Resultados de Búsqueda</h1>
             {error ? (
-                <Typography variant="body1" align="center" color="error">
-                    {error}
-                </Typography>
+                <p className="error-message">{error}</p>
             ) : (
-                <ShowList shows={shows} />
+                <div className="show-list">
+                    {shows.map((showData, index) => {
+                        const show = showData.show || {};
+                        return (
+                            <a
+                                key={index}
+                                href={`/series/${show.id}`}
+                                className="show-card-link"
+                            >
+                                <div className="show-card">
+                                    <img
+                                        src={
+                                            show.image?.medium ||
+                                            "https://via.placeholder.com/200x500?text=No+Image"
+                                        }
+                                        alt={show.name || "Sin título"}
+                                    />
+                                    <div className="show-card-title">
+                                        {show.name || "Sin título"}
+                                    </div>
+                                </div>
+                            </a>
+                        );
+                    })}
+                </div>
             )}
-        </Box>
+        </div>
     );
 }
-
