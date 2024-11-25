@@ -164,7 +164,7 @@ export default function SeriesDetails({ showDetails, isLoggedIn, handleAddToFavo
             </button>
           ) : (
             <p style={{ marginTop: "20px", color: "red" }}>
-              Debes iniciar sesión para añadir a favoritos.
+              Inicia sesión.
             </p>
           )}
         </div>
