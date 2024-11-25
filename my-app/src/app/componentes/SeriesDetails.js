@@ -11,7 +11,8 @@ export default function SeriesDetails({
   isLoggedIn,
   handleToggleFavorite,
   isFavorite: initialIsFavorite,
-  }) {
+  recommendations = [],  // Asegúrate de que este prop se pase correctamente
+}) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(null);
   const [seasonData, setSeasonData] = useState([]);
@@ -31,18 +32,18 @@ export default function SeriesDetails({
     const fetchImages = async () => {
       try {
         const response = await fetch(
-            `https://api.tvmaze.com/shows/${showDetails.id}/images`
+          `https://api.tvmaze.com/shows/${showDetails.id}/images`
         );
         const images = await response.json();
         const background =
-            images.find((img) => img.type === "background") ||
-            images.find((img) => img.type === "banner") ||
-            images[0];
+          images.find((img) => img.type === "background") ||
+          images.find((img) => img.type === "banner") ||
+          images[0];
         if (background) {
           const img = new Image();
           img.src =
-              background.resolutions?.original?.url ||
-              background.resolutions?.medium?.url;
+            background.resolutions?.original?.url ||
+            background.resolutions?.medium?.url;
           img.onload = () => {
             setBackgroundImage(img.src);
             setIsLoadingImage(false);
@@ -71,7 +72,7 @@ export default function SeriesDetails({
   const fetchSeasons = async () => {
     try {
       const response = await fetch(
-          `https://api.tvmaze.com/shows/${showDetails.id}/seasons`
+        `https://api.tvmaze.com/shows/${showDetails.id}/seasons`
       );
       const seasonsData = await response.json();
       setSeasons(seasonsData);
@@ -83,7 +84,7 @@ export default function SeriesDetails({
   const fetchCast = async () => {
     try {
       const response = await fetch(
-          `https://api.tvmaze.com/shows/${showDetails.id}/cast`
+        `https://api.tvmaze.com/shows/${showDetails.id}/cast`
       );
       const castData = await response.json();
       setCast(castData.map((member) => member.person));
@@ -101,7 +102,7 @@ export default function SeriesDetails({
   const handleSeasonClick = async (seasonId) => {
     try {
       const response = await fetch(
-          `https://api.tvmaze.com/seasons/${seasonId}/episodes`
+        `https://api.tvmaze.com/seasons/${seasonId}/episodes`
       );
       const episodes = await response.json();
       setSeasonData(episodes);
@@ -120,74 +121,94 @@ export default function SeriesDetails({
     setActiveTab(null);
   };
 
+  const handleSeeMore = () => {
+    router.push(`/relatedShows?showId=${showDetails.id}`);
+  };
+
+  // Filtrar las recomendaciones para que no incluya la serie que estamos viendo
+  const filteredRecommendations = recommendations.filter(
+    (serie) => serie.id !== showDetails.id
+  );
+
   return (
-      <div className={styles.seriesDetails}>
-        <Link className={styles.home} href="/" passHref>
-          <button>🏠︎</button>
-        </Link>
-        <div
-            className={styles.background}
-            style={{
-              backgroundImage: isLoadingImage
-                  ? 'url("fallback_loading_image_url")'
-                  : `url(${backgroundImage || "fallback_image_url"})`,
-            }}
-        />
+    <div className={styles.seriesDetails}>
+      <Link className={styles.home} href="/" passHref>
+        <button>🏠︎</button>
+      </Link>
+      <div
+        className={styles.background}
+        style={{
+          backgroundImage: isLoadingImage
+            ? 'url("fallback_loading_image_url")'
+            : `url(${backgroundImage || "fallback_image_url"})`,
+        }}
+      />
+      <div className={styles.title}>
+        <h1>{showDetails.name || "Cargando..."}</h1>
+      </div>
 
-        <div className={styles.title}>
-          <h1>{showDetails.name || "Cargando..."}</h1>
-        </div>
+      <div className={styles.buttons}>
+        <button onClick={() => handleTabClick("season")}>Temporadas</button>
+        <h2 className={styles.rating}>{rating} ☆</h2>
+        <button onClick={() => handleTabClick("cast")}>Reparto</button>
 
-        <div className={styles.buttons}>
-          <button onClick={() => handleTabClick("season")}>Temporadas</button>
-          <h2 className={styles.rating}>{rating} ☆</h2>
-          <button onClick={() => handleTabClick("cast")}>Reparto</button>
-
-          {isLoggedIn ? (
-              <button
-                  onClick={handleToggleFavorite}
-                  className={styles.favoriteButton}
-                  aria-label="Toggle Favorite"
-              >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill={isFavorite ? "red" : "none"}
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className={styles.heartIcon}
-                >
-                  <path d="M20.8 4.6c-1.7-1.8-4.5-1.8-6.2 0l-.6.7-.6-.7c-1.7-1.8-4.5-1.8-6.2 0-1.9 2-1.9 5.3 0 7.3l6.8 7.3 6.8-7.3c1.8-2 1.8-5.3 0-7.3z"></path>
-                </svg>
-              </button>
-          ) : (
-              <Link href="/login" style={{ textDecoration: "none", color: "inherit" }}>
-                <p className={styles.warning}>Inicia sesión</p>
-              </Link>
-          )}
-        </div>
-
-        <button
-            className={styles.vermas}
-            onClick={() => router.push("/relatedShows")}
-        >
-          Ver más
-        </button>
-
-        {activeTab && (
-            <Sidebar
-                activeTab={activeTab}
-                seasons={seasons}
-                seasonData={seasonData}
-                selectedSeason={selectedSeason}
-                onSeasonClick={handleSeasonClick}
-                onBackToSeasons={handleBackToSeasons}
-                cast={cast}
-                onClose={handleCloseSidebar}
-            />
+        {isLoggedIn ? (
+          <button
+            onClick={handleToggleFavorite}
+            className={styles.favoriteButton}
+            aria-label="Toggle Favorite"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill={isFavorite ? "red" : "none"}
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={styles.heartIcon}
+            >
+              <path d="M20.8 4.6c-1.7-1.8-4.5-1.8-6.2 0l-.6.7-.6-.7c-1.7-1.8-4.5-1.8-6.2 0-1.9 2-1.9 5.3 0 7.3l6.8 7.3 6.8-7.3c1.8-2 1.8-5.3 0-7.3z"></path>
+            </svg>
+          </button>
+        ) : (
+          <Link href="/login" style={{ textDecoration: "none", color: "inherit" }}>
+            <p className={styles.warning}>Inicia sesión</p>
+          </Link>
         )}
       </div>
+
+      <button className={styles.vermas} onClick={handleSeeMore}>
+        Ver más
+      </button>
+
+      {/* Mostrar recomendaciones si las hay */}
+      <div className={styles.recommendations}>
+        <h3>Series recomendadas</h3>
+        <div className={styles.recommendationList}>
+          {filteredRecommendations.slice(0, 3).map((serie) => (
+            <Link key={serie.id} href={`/seriesDetails/${serie.id}`} passHref>
+              <div className={styles.recommendationItem}>
+                <h4>{serie.name}</h4>
+                <img src={serie.image?.medium} alt={serie.name} />
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {activeTab && (
+        <Sidebar
+          activeTab={activeTab}
+          seasons={seasons}
+          seasonData={seasonData}
+          selectedSeason={selectedSeason}
+          onSeasonClick={handleSeasonClick}
+          onBackToSeasons={handleBackToSeasons}
+          cast={cast}
+          onClose={handleCloseSidebar}
+        />
+      )}
+    </div>
   );
 }

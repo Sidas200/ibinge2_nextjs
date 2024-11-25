@@ -1,10 +1,8 @@
 /* General styles */
 body {
     margin-top: 6%;
-    font-family: "Arsenal SC";
-    background-color: #121212; /* Fondo oscuro */
-    background-image: url("../images/rsback.jpg");
-    color: #fff; /* Texto blanco */
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
 }
 
 /* Loading container */
@@ -13,93 +11,69 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    color: #fff;
 }
 
 /* Profile container */
 .profile-container {
     display: flex;
-    height: calc(100vh - 6%);
+    height: 100vh;
     max-width: 1500px;
     margin: 0 auto;
-    padding: 20px;
-    gap: 20px; /* Espaciado entre sidebar y main */
 }
+
 /* Sidebar */
 .sidebar {
     flex: 1;
-    background-image: url("../images/fondo.jpg"); /* Nueva imagen de fondo */
-    background-size: cover; /* Asegura que la imagen cubra toda el área */
-    background-position: center; /* Centra la imagen de fondo */
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    backdrop-filter: blur(5px); /* Suaviza el fondo para mayor legibilidad */
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semitransparente como fallback */
+    background-image: url("../images/image-mesh-gradient (1).png");
+    backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 12px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar-title {
-    font-size: 22px; /* Tamaño de fuente más grande */
-    margin-bottom: 20px;
+    font-size: 18px;
+    margin-bottom: 10px;
     font-weight: bold;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Sombra para mejor legibilidad */
-}
-
-
-.sidebar p {
-    font-size: 18px; /* Tamaño más grande para el texto */
-    line-height: 1.5; /* Mejor espaciado entre líneas */
-    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8); /* Sombra para texto blanco */
+    color: #333;
 }
 
 .logout-button {
     margin-top: 20px;
-    padding: 12px 24px; /* Botón más grande */
+    padding: 10px 20px;
     background-color: #ff4d4d;
     color: #fff;
     border: none;
-    border-radius: 50px; /* Redondea los bordes a 50px */
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 18px; /* Texto más grande */
-    box-shadow: 0px 4px 6px rgba(255, 77, 77, 0.5);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra para legibilidad */
+    font-size: 16px;
 }
 
 .logout-button:hover {
     background-color: #e03e3e;
-    transform: scale(1.05);
 }
-
-
 
 /* Main favorites container */
 .favorites-container {
     flex: 3;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.1); /* Fondo oscuro semitransparente */
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    overflow-y: auto;
 }
 
 .favorites-title {
-    font-size: 28px;
+    font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
-    color: #ffffff;
-    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
+    color: #333;
 }
 
-/* Grid de favoritos */
 .favorites-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Ajuste dinámico */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 20px;
 }
 
@@ -107,52 +81,26 @@ body {
     position: relative;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.05); /* Fondo oscuro semitransparente */
-    width: 100%; /* Asegura que ocupe todo el espacio disponible */
-    aspect-ratio: 2 / 3; /* Define una proporción para el contenedor */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-.favorite-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 8px 15px rgba(255, 255, 255, 0.2);
-}
-
-/* Imagen de favoritos */
 .favorite-image {
-    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
-    height: 100%; /* Asegura que la imagen ocupe todo el alto del contenedor */
-    object-fit: cover; /* Llena el contenedor y recorta lo necesario */
+    width: 100%;
+    height: auto;
     display: block;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro detrás de imágenes pequeñas */
-    filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.7)); /* Añadir una sombra ligera */
-    transition: transform 0.3s ease-in-out; /* Animación al pasar el mouse */
-    border-radius: 12px; /* Esquinas redondeadas */
 }
 
-.favorite-image:hover {
-    transform: scale(1.05); /* Ampliar ligeramente la imagen al pasar */
-}
-
-
-/* Botón eliminar */
 .favorite-delete {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(255, 77, 77, 0.9);
+    background: none;
     border: none;
-    font-size: 20px;
-    color: #fff;
-    border-radius: 50%;
-    padding: 5px;
+    font-size: 24px;
+    color: red;
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .favorite-delete:hover {
-    transform: scale(1.2);
-    background-color: #e03e3e;
+    transform: scale(1.1);
 }
