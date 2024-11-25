@@ -1,4 +1,3 @@
-// components/PlatformLogos.js
 import styles from './PlatformLogos.module.css';
 
 export default function PlatformLogos({ platforms }) {

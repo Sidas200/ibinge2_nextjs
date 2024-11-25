@@ -20,17 +20,6 @@
 .sidebar.active {
     transform: translateX(0);
 }
-  
-.closeButton {
-    background: transparent;
-    color: white;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-bottom: 20px;
-    position: fixed;
-    top: 20px;
-}
 
 .active {
   transform: translateX(0);
@@ -42,6 +31,15 @@
   padding: 8px 8px;
   cursor: pointer;
   margin-bottom: 16px;
+  background: transparent;
+  font-size: 2.5vh;
+  position: fixed;
+  top: 20px;
+  transition: background-color .8s ease, font-size .8s ease;
+}
+
+.closeButton:hover{
+  font-size: 3vh;
 }
 
 .backButton {
@@ -49,11 +47,17 @@
   border: none;
   cursor: pointer;
   margin-top: 10px;
+  font-size: 2.5vh;
+  transition: background-color .8s ease, font-size .8s ease;
+}
+
+.backButton:hover {
+  font-size: 2.7vh;
 }
 
 .heading {
   margin-bottom: 8px;
-  font-size: 1.5rem;
+  font-size: 5vh;
 }
 
 .button {
@@ -62,15 +66,21 @@
   cursor: pointer;
   width: 50%;
   border-radius: 4px;
-  font-size: 1rem;
-  transition: background-color .8s ease, font-size .8s ease;;
+  font-size: 2.5vh;
+  transition: background-color .8s ease, font-size .8s ease;
   text-align: left;
 }
 
 .button:hover {
-  font-size: 1.1rem;
+  font-size: 2.7vh;
 }
 
+.cast{
+  padding: 0px 0px;
+  width: 50%;
+  font-size: 2.5vh;
+  text-align: left;
+}
 .series, .names, .episodes {
   display: flex;
   flex-direction: column;

@@ -37,7 +37,7 @@ export default function Sidebar({
           <h3 className={styles.heading}>{`Temporada ${selectedSeason.number}`}</h3>
           {seasonData.length > 0 ? (
             seasonData.map((episode) => (
-              <p key={episode.id}>{episode.name}</p>
+              <p className={styles.cast} key={episode.id}>{episode.name}</p>
             ))
           ) : (
             <p>No hay episodios disponibles</p>
@@ -51,7 +51,7 @@ export default function Sidebar({
         <div className={styles.names} >
           <h3 className={styles.heading}>Elenco</h3>
           {cast.map((member) => (
-            <p key={member.id}>{member.name}</p>
+            <p className={styles.cast}key={member.id}>{member.name}</p>
           ))}
         </div>
       )}

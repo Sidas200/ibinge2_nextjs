@@ -47,7 +47,7 @@
     background-color: transparent;
     padding: 10px 20px;
     color: white; 
-    font-size: 1.3rem;
+    font-size: 2.5vh;
     cursor: pointer;
     transition: all 0.3s ease; 
     font-weight: normal;
@@ -64,7 +64,7 @@
     align-items: center;
     text-align: center;
     padding: 10px 20px;
-    font-size: 1.3rem;
+    font-size: 2.5vh;
 }
 
 .title {
@@ -75,7 +75,7 @@
 }
   
 .title {
-    font-size: 5.5rem;
+    font-size: 12vh;
     margin-bottom: 0px;
     margin-left: 20px;
     font-family: 'Arsenal SC', serif;
@@ -83,7 +83,7 @@
 
 .star {
     color: #ddd;
-    font-size: 2em;
+    font-size: 2.5vh;
     position: relative;
     display: flex;
     align-items: center;
@@ -106,8 +106,8 @@
 }
 
 .heartIcon {
-    width: 24px;
-    height: 24px;
+    width: 3vh;
+    height: 3vh;
     stroke: rgb(255, 255, 255);
     fill: none;
     transition: fill 0.3s ease, stroke 0.3s ease;
@@ -123,7 +123,7 @@
 }
 
 .home{
-    font-size: 2em;
+    font-size: 4vh;
     cursor: pointer;
     display: flex;
     gap: 10px;
@@ -148,7 +148,7 @@
     background-color: transparent;
     padding: 10px 20px;
     color: white; 
-    font-size: 1.3rem;
+    font-size: 2.5vh;
     cursor: pointer;
     transition: all 0.3s ease; 
 }
@@ -170,7 +170,7 @@
     background-color: transparent;
     padding: 10px 20px;
     color: white; 
-    font-size: 1.3rem;
+    font-size: 2.5vh;
     cursor: pointer;
     transition: all 0.3s ease; 
     font-weight: normal;
