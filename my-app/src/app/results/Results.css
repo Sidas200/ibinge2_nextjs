@@ -1,6 +1,7 @@
 body {
     color: var(--foreground);
     background: #000;
+
     background-image: url("../images/rsback.jpg");
     font-family: 'Arsenal SC', serif;
     background-size: cover;
@@ -17,6 +18,7 @@ body {
     border-radius: 12px;
 }
 
+
 .result-title {
     font-size: 2.5rem;
     text-align: center;
@@ -28,6 +30,7 @@ body {
     text-shadow: 0px 3px 6px rgba(255, 255, 255, 0.2);
 }
 
+
 .result-title::after {
     content: '';
     display: block;
@@ -38,12 +41,14 @@ body {
     border-radius: 2px;
 }
 
+
 .show-list {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 4vw;
     padding: 20px;
 }
+
 
 .show-card {
     background: #1a1a1a;
@@ -66,6 +71,7 @@ body {
     border-color: #666; 
 }
 
+
 .show-card img {
     width: 100%;
     height: 70%;
@@ -80,10 +86,13 @@ body {
     border-radius: 8px 8px 0 0;
 }
 
+
 .show-card-title {
     font-size: 1rem;
     color: #fff;
+
     margin: 10px 0;
+
     letter-spacing: 0.5px;
     font-family: 'Arsenal SC', serif;
     max-width: 100%;
