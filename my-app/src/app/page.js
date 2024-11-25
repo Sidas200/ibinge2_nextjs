@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 import NavBar from "./componentes/NavBar";
 import MovieCarrusel from "./componentes/MovieCarrusel";
 import LoadingScreen from "./componentes/LoadingScreen";
-import TestFirebase from "./componentes/TestFirebase";
+
 
 export default function Home() {
     const [showIds, setShowIds] = useState([]);
