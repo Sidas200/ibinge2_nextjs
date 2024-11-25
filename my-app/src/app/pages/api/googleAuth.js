@@ -1,4 +1,3 @@
-// pages/api/googleAuth.js
 import { signInWithGoogle } from "../../../firebase";
 
 export default async function handler(req, res) {

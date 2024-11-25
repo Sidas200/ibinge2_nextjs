@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { auth, db } from "../../../firebase";
@@ -19,7 +18,6 @@ function SeriesPage({ params }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
 
-    // Comprobar si el usuario está autenticado y cargar datos
     useEffect(() => {
         const checkAuth = () => {
             const token = Cookies.get("authToken");
@@ -42,7 +40,6 @@ function SeriesPage({ params }) {
                 setShowDetails(showData);
                 setCastDetails(castData);
 
-                // Verificar si la serie está en favoritos
                 const user = auth.currentUser;
                 if (user) {
                     const favoriteRef = doc(db, "favorites", `${user.uid}_${id}`);
@@ -59,7 +56,6 @@ function SeriesPage({ params }) {
         fetchData();
     }, [id]);
 
-    // Manejar agregar/eliminar de favoritos
     const handleToggleFavorite = async () => {
         try {
             const user = auth.currentUser;
@@ -70,11 +66,9 @@ function SeriesPage({ params }) {
 
             const favoriteRef = doc(db, "favorites", `${user.uid}_${id}`);
             if (isFavorite) {
-                // Eliminar de favoritos
                 await deleteDoc(favoriteRef);
                 setIsFavorite(false);
             } else {
-                // Agregar a favoritos
                 const favoriteData = {
                     userId: user.uid,
                     showId: id,

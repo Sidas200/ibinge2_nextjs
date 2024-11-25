@@ -1,11 +1,10 @@
-/* General styles */
 body {
     margin-top: 6%;
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
 }
 
-/* Loading container */
+
 .loading-container {
     display: flex;
     justify-content: center;
@@ -13,7 +12,7 @@ body {
     height: 100vh;
 }
 
-/* Profile container */
+
 .profile-container {
     display: flex;
     height: 100vh;
@@ -21,7 +20,7 @@ body {
     margin: 0 auto;
 }
 
-/* Sidebar */
+
 .sidebar {
     flex: 1;
     background-image: url("../images/image-mesh-gradient (1).png");
@@ -56,7 +55,7 @@ body {
     background-color: #e03e3e;
 }
 
-/* Main favorites container */
+
 .favorites-container {
     flex: 3;
     padding: 20px;

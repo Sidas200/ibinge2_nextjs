@@ -78,9 +78,6 @@ export default function Login() {
                     </form>
                 </div>
                 <div className="image-section">
-                    <div className="text-overlay">
-                        Los Monos Articos<br />Ay bobito.
-                    </div>
                 </div>
             </div>
         </>

@@ -5,8 +5,8 @@
 :root {
     --background: #ffffff;
     --foreground: #ffffff;
-    --primary-color: #1f2937; /* Color de fondo para la navegación y otras secciones */
-    --accent-color: #e54676; /* Color de acento para botones y elementos destacados */
+    --primary-color: #1f2937;
+    --accent-color: #e54676;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -100,31 +100,31 @@ body {
 }
 
 .platform-section {
-    background-color: #000; /* Fondo negro */
+    background-color: #000;
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 90vh; /* Ocupa el 90% de la altura de la ventana */
-    margin-top: 10vh; /* Espaciado superior */
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    margin-top: 10vh;
 }
 
 .platform-content {
     display: flex;
-    justify-content: center; /* Centra el grid horizontalmente */
-    align-items: center; /* Centra el contenido verticalmente */
-    width: 100%; /* Ocupa todo el ancho disponible */
-    max-width: 1200px; /* Ancho máximo para el contenido */
-    gap: 2rem; /* Espaciado entre elementos secundarios */
-    padding: 2rem; /* Espaciado interno */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    gap: 2rem;
+    padding: 2rem;
 }
 
 .platform-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas de igual tamaño */
-    gap: 7vh 8vw; /* Espaciado uniforme entre columnas y filas */
-    justify-content: center; /* Centra el grid horizontalmente */
-    align-items: center; /* Centra el grid verticalmente */
-    padding: 2rem; /* Espaciado interno */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7vh 8vw;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
 

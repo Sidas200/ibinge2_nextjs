@@ -11,7 +11,7 @@ export default function SeriesDetails({
   isLoggedIn,
   handleToggleFavorite,
   isFavorite: initialIsFavorite,
-  recommendations = [],  // Asegúrate de que este prop se pase correctamente
+  recommendations = [],
 }) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState(null);
@@ -125,7 +125,6 @@ export default function SeriesDetails({
     router.push(`/relatedShows?showId=${showDetails.id}`);
   };
 
-  // Filtrar las recomendaciones para que no incluya la serie que estamos viendo
   const filteredRecommendations = recommendations.filter(
     (serie) => serie.id !== showDetails.id
   );

@@ -1,11 +1,9 @@
-/* Contenedor de la barra de búsqueda */
 .search-bar-container {
     position: relative;
     width: 100%;
     max-width: 300px;
 }
 
-/* Estilo de la barra de búsqueda */
 .custom-search-bar {
     width: 100%;
     padding: 1.5vh;
@@ -24,7 +22,6 @@
     outline: none;
 }
 
-/* Cambiar color del texto del placeholder a negro */
 .custom-search-bar::placeholder {
-    color: rgb(255, 255, 255); /* Cambia el color del texto del placeholder */
+    color: rgb(255, 255, 255);
 }

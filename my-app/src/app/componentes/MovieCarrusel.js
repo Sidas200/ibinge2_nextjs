@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Slider from "react-slick";
-import { auth, db } from "../../firebase"; // Asegúrate de importar correctamente Firebase
+import { auth, db } from "../../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -46,7 +46,6 @@ const MovieCarrusel = ({ totalToShow }) => {
     useEffect(() => {
         const fetchShows = async () => {
             try {
-                // Obtener un conjunto amplio de series desde la API
                 const response = await fetch(`https://api.tvmaze.com/shows`);
                 if (!response.ok) {
                     throw new Error("Error al obtener las series.");
@@ -57,15 +56,13 @@ const MovieCarrusel = ({ totalToShow }) => {
                 let filteredShows;
 
                 if (favoriteGenres.length > 0) {
-                    // Filtrar las series por los géneros favoritos
                     filteredShows = allShows.filter((show) =>
                         show.genres.some((genre) => favoriteGenres.includes(genre))
                     );
                 } else {
-                    // Obtener series aleatorias
                     filteredShows = allShows
-                        .sort(() => Math.random() - 0.5) // Mezclar aleatoriamente
-                        .slice(0, 20); // Limitar el número de series a mostrar
+                        .sort(() => Math.random() - 0.5)
+                        .slice(0, 20);
                 }
 
                 setShows(filteredShows);

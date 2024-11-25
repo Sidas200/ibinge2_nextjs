@@ -1,4 +1,3 @@
-// src/app/_app.js o pages/_app.js
 import Head from 'next/head';
 import '../styles/globals.css';
 

@@ -16,8 +16,7 @@ function ShowList({ shows }) {
         >
             {Array.isArray(shows) && shows.length > 0 ? (
                 shows.map((result, index) => {
-                    // Si el show viene de una búsqueda, debemos acceder al atributo "show"
-                    const show = result.show || result; // Maneja ambas estructuras: búsqueda y detalle directo
+                    const show = result.show || result;
                     return (
                         <Grid item key={show.id || index} xs={12} sm={6} md={4} lg={3}>
                             <Link href={`/series/${show.id}`} passHref>
@@ -63,7 +62,6 @@ function ShowList({ shows }) {
                                         </div>
                                     )}
 
-                                    {/* Contenido de la tarjeta */}
                                     <CardContent>
                                         <Typography
                                             variant="h6"
@@ -98,7 +96,6 @@ function ShowList({ shows }) {
                     );
                 })
             ) : (
-                // Mensaje cuando no hay resultados
                 <Typography
                     variant="h6"
                     align="center"
