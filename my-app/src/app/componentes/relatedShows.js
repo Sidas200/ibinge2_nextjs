@@ -71,7 +71,7 @@ export default function RelatedShows() {
   return (
     <div className={styles.rsback}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Series Relacionadas</h1>
+        <h1 className={styles.title}>Series relacionadas</h1>
 
         {isLoading ? (
           <p>Cargando series relacionadas...</p>
