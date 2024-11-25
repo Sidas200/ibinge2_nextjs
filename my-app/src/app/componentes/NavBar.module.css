@@ -4,24 +4,35 @@
     top: 0;
     left: 0;
     right: 0;
-    background: #f1f1f1;
     z-index: 1000;
     height: 11vh;
-    background-image: url("../images/navaaa.jpg");
-    background-size: cover;
-    background-position: center;
     box-shadow: 10px 10px 15px black;
     transition: all 0.3s ease; /* Agrega transición para efectos suaves */
 }
 
-/* Contenedor de los elementos dentro del navbar */
+.content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../images/fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat; 
+    filter: blur(20px);
+    z-index: -1;
+}
+
 .content {
+    background-color: rgb(74, 74, 74);
     display: flex;
-    align-items: center; /* Centra verticalmente los elementos */
-    justify-content: space-between; /* Espacio entre los elementos */
-    padding: 0 50px; /* Ajustamos los márgenes */
-    width: 100%; /* Asegura que el contenido ocupe todo el ancho disponible */
-    height: 11vh; /* Asegura que ocupe todo el alto disponible */
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px; 
+    width: 100%;
+
 }
 
 /* Estilos para el campo de búsqueda */
