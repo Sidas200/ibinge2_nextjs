@@ -1,20 +1,18 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import SearchBar from "./SearchBar";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import Cookies from "js-cookie";
-import './nav_bar.css';
+import styles from './NavBar.module.css';
 
 const NavBar = ({ onSearch }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const router = useRouter();
 
     useEffect(() => {
-        // Verificar si la cookie `authToken` está presente
         const token = Cookies.get("authToken");
-        setIsLoggedIn(!!token); // Si existe el token, isLoggedIn será true
+        setIsLoggedIn(!!token);
     }, []);
 
     const handleSearch = (query) => {
@@ -23,41 +21,28 @@ const NavBar = ({ onSearch }) => {
         }
     };
 
-    const handleLogout = () => {
-        // Eliminar la cookie y redirigir al usuario
-        Cookies.remove("authToken");
-        setIsLoggedIn(false); // Actualizar estado
-        router.push("/login"); // Redirigir a la página de login
-    };
-
     return (
-        <AppBar position="fixed" className="fondo" sx={{ boxShadow: 'none', background: 'transparent' }}>
-            <Toolbar>
-                <Box display="flex" marginRight="200px">
-                    <SearchBar onSearch={handleSearch} />
-                </Box>
-                <Box display="flex" sx={{ color: "black", marginLeft: 'auto' }}>
-                    <Typography variant="h6" sx={{ marginRight: '16px' }}>iB</Typography>
-                    <Link href="/" style={{ textDecoration: 'none', color: 'inherit', marginRight: '16px' }}>
-                        Inicio
+        <div className={styles.fondo}>
+            <div className={styles.content}>
+                <SearchBar className={styles.search} onSearch={handleSearch} />
+                <div className={styles.logo}>
+                    <Link href="/">
+                        <span>iB</span>
                     </Link>
+                </div>
+                <div className={styles.account}>
                     {isLoggedIn ? (
-                        <>
-                        <Button onClick={handleLogout} style={{ color: 'inherit' }}>
-                            Cerrar sesión
-                        </Button>
-                        <Link href="/perfil" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link href="/perfil" className={styles.link}>
                             Perfil
                         </Link>
-                        </>
                     ) : (
-                        <Link href="/login" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Link href="/login" className={styles.link}>
                             Login
                         </Link>
                     )}
-                </Box>
-            </Toolbar>
-        </AppBar>
+                </div>
+            </div>
+        </div>
     );
 };
 

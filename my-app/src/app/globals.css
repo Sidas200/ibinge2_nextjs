@@ -55,16 +55,6 @@ body {
     background-blend-mode: soft-light;
 }
 
-.navbar {
-    width: 100%;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--primary-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
 .search-bar {
     width: 100%;
     max-width: 400px;
@@ -100,6 +90,7 @@ body {
     display: flex;
     align-items: center;
     height: 90vh;
+    margin-top: 11vh;
 }
 
 .platform-content {
