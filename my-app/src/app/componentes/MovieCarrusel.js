@@ -12,28 +12,23 @@ import "./MovieCarrusel.css";
 const MovieCarrusel = ({ totalToShow }) => {
     const [favoriteGenres, setFavoriteGenres] = useState([]);
     const [shows, setShows] = useState([]);
+    const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
         const fetchFavoriteGenres = async () => {
             try {
                 const currentUser = auth.currentUser;
-                if (!currentUser) {
-                    console.warn("El usuario no ha iniciado sesión.");
-                    return;
-                }
+                if (!currentUser) return;
 
-                // Obtener los favoritos del usuario
                 const q = query(
                     collection(db, "favorites"),
                     where("userId", "==", currentUser.uid)
                 );
                 const querySnapshot = await getDocs(q);
-
-                // Extraer géneros de los favoritos
                 const genres = querySnapshot.docs
                     .map((doc) => doc.data().genres)
-                    .flat(); // Aplanar para combinar todos los arrays de géneros
-                const uniqueGenres = [...new Set(genres)]; // Eliminar duplicados
+                    .flat();
+                const uniqueGenres = [...new Set(genres)];
                 setFavoriteGenres(uniqueGenres);
             } catch (error) {
                 console.error("Error al obtener géneros favoritos:", error);
@@ -47,22 +42,34 @@ const MovieCarrusel = ({ totalToShow }) => {
         const fetchShows = async () => {
             try {
                 const response = await fetch(`https://api.tvmaze.com/shows`);
-                if (!response.ok) {
-                    throw new Error("Error al obtener las series.");
-                }
+                if (!response.ok) throw new Error("Error al obtener las series.");
 
                 const allShows = await response.json();
-
-                let filteredShows;
+                let filteredShows = [];
 
                 if (favoriteGenres.length > 0) {
-                    filteredShows = allShows.filter((show) =>
-                        show.genres.some((genre) => favoriteGenres.includes(genre))
-                    );
-                } else {
-                    filteredShows = allShows
+                    const scoredShows = allShows.map((show) => {
+                        const score = show.genres.reduce((acc, genre) => {
+                            if (favoriteGenres.includes(genre)) {
+                                return acc + 1;
+                            }
+                            return acc;
+                        }, 0);
+                        return { ...show, score };
+                    });
+
+                    filteredShows = scoredShows
+                        .filter((show) => show.score > 0)
+                        .sort((a, b) => b.score - a.score)
+                        .slice(0, totalToShow || 20);
+                }
+
+                if (filteredShows.length < (totalToShow || 20)) {
+                    const randomShows = allShows
+                        .filter((show) => !filteredShows.includes(show))
                         .sort(() => Math.random() - 0.5)
-                        .slice(0, 20);
+                        .slice(0, (totalToShow || 20) - filteredShows.length);
+                    filteredShows = [...filteredShows, ...randomShows];
                 }
 
                 setShows(filteredShows);
@@ -72,7 +79,7 @@ const MovieCarrusel = ({ totalToShow }) => {
         };
 
         fetchShows();
-    }, [favoriteGenres]);
+    }, [favoriteGenres, totalToShow]);
 
     const settings = {
         dots: false,
@@ -82,17 +89,25 @@ const MovieCarrusel = ({ totalToShow }) => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 3000,
+        beforeChange: () => setIsDragging(true),
+        afterChange: () => setTimeout(() => setIsDragging(false), 100),
     };
 
     return (
         <div className="midpage">
-            <h1 className="texto">Seleccinados para tí</h1>
+            <h1 className="texto">Seleccionados para ti</h1>
             <div className="movie-carousel-container">
                 {shows.length > 0 ? (
                     <Slider {...settings} className="slider-wrapper">
                         {shows.map((show) => (
                             <div key={show.id} className="slider-item">
-                                <Link href={`/series/${show.id}`} passHref>
+                                <Link
+                                    href={`/series/${show.id}`}
+                                    passHref
+                                    onClick={(e) => {
+                                        if (isDragging) e.preventDefault();
+                                    }}
+                                >
                                     <div className="movie-card">
                                         {show.image && show.image.medium ? (
                                             <img
@@ -121,6 +136,7 @@ const MovieCarrusel = ({ totalToShow }) => {
 };
 
 export default MovieCarrusel;
+
 
 
 
