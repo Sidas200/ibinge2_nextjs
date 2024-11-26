@@ -26,7 +26,7 @@ export default function Login() {
 
             const token = await user.getIdToken();
 
-            Cookies.set("authToken", token, { expires: 7 });
+            Cookies.set("authToken", token, { expires: new Date(Date.now()-1 + 2 * 60 * 60 * 1000) });
 
             await fetch("/api/auth", {
                 method: "POST",
