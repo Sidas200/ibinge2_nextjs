@@ -1,4 +1,3 @@
-// Sidebar.js
 "use client";
 import React, { useState, useEffect } from 'react';
 import styles from './Sidebar.module.css';
@@ -28,7 +27,6 @@ export default function Sidebar({ activeTab, seasons, cast, rating, onClose }) {
                 {`Temporada ${season.number}`}
               </h3>
 
-              {/* Mostrar episodios solo si la temporada está seleccionada */}
               {selectedSeason === index && season.episodes?.length > 0 ? (
                 season.episodes.map((episode, epIndex) => (
                   <p key={epIndex} className={styles.episode}>{episode.name}</p>

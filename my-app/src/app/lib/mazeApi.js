@@ -23,7 +23,6 @@ export async function fetchShowId(query) {
     }
 }
 
-
 export async function fetchShowDetails(id) {
     try {
         const res = await fetch(`https://api.tvmaze.com/shows/${id}`, {
@@ -38,7 +37,6 @@ export async function fetchShowDetails(id) {
         throw error;
     }
 }
-
 
 export async function fetchCast(id) {
     try {

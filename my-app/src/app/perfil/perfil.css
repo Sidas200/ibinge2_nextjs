@@ -1,4 +1,3 @@
-/* General styles */
 body {
     margin-top: 6%;
     font-family: "Arsenal SC";
@@ -7,7 +6,6 @@ body {
     color: #fff;
 }
 
-/* Loading container */
 .loading-container {
     display: flex;
     justify-content: center;
@@ -15,7 +13,6 @@ body {
     height: 100vh;
     color: #fff;
 }
-
 
 .profile-container {
     display: flex;
@@ -25,7 +22,7 @@ body {
     padding: 20px;
     gap: 20px;
 }
-/* Sidebar */
+
 .sidebar {
     flex: 1;
     background-image: url("../images/fondo.jpg");
@@ -76,9 +73,6 @@ body {
     transform: scale(1.05);
 }
 
-
-
-
 .favorites-container {
     flex: 3;
     padding: 20px;
@@ -96,7 +90,6 @@ body {
     text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Grid de favoritos */
 .favorites-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -135,8 +128,6 @@ body {
 .favorite-image:hover {
     transform: scale(1.05);
 }
-
-
 
 .favorite-delete {
     position: absolute;

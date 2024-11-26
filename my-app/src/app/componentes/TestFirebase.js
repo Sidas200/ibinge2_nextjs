@@ -13,7 +13,7 @@ const TestFirebase = () => {
                 const seriesCollection = collection(db, 'Series');
                 const seriesSnapshot = await getDocs(seriesCollection);
                 const seriesList = seriesSnapshot.docs.map(doc => doc.data());
-                console.log("Datos obtenidos de Firebase:", seriesList); // Muestra los datos en la consola
+                console.log("Datos obtenidos de Firebase:", seriesList);
                 setSeriesData(seriesList);
             } catch (error) {
                 console.error("Error al obtener datos de Firebase:", error);

@@ -181,9 +181,7 @@ export default function SeriesDetails({
         Ver más
       </button>
 
-      {/* Mostrar recomendaciones si las hay */}
       <div className={styles.recommendations}>
-        <h3>Series recomendadas</h3>
         <div className={styles.recommendationList}>
           {filteredRecommendations.slice(0, 3).map((serie) => (
             <Link key={serie.id} href={`/seriesDetails/${serie.id}`} passHref>

@@ -34,7 +34,6 @@ function ShowList({ shows }) {
                                         },
                                     }}
                                 >
-                                    {/* Imagen del show */}
                                     {show.image && show.image.medium ? (
                                         <CardMedia
                                             component="img"
