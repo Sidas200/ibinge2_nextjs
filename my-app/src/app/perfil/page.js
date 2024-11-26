@@ -105,7 +105,7 @@ export default function UserProfile() {
                                     className="favorite-delete"
                                     onClick={() => handleDeleteFavorite(favorite.id)}
                                 >
-                                    ❤️
+                                    ❤
                                 </button>
                             </div>
                         ))}
