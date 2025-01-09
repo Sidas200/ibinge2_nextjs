@@ -1,0 +1,1 @@
+Este es una pagina web realizada en clase, en la cual se pueden obtener diversas series que se encuentran en la API de TvMaze, en la pagina se podran guardar las series como favoritas en caso de ya haberlas visto, ademas de poder obtener sugerencias relacionadas con esa serie.
